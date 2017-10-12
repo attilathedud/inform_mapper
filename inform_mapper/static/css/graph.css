@@ -1,0 +1,80 @@
+#info-box {
+    height: 100%;
+    width: 26%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #ccc;
+    overflow: scroll;
+}
+
+#cy {
+    height: 100%;
+    width: 74%;
+    position: absolute;
+    left: 26%;
+    top: 0;
+}
+
+#search-box {
+    margin-top: 10px;
+    width: 100%;
+}
+
+div.accordion {
+    background-color: #d3394c;
+    color: #f1e5e6;
+    cursor: pointer;
+    padding: 0.625rem 1.25rem;
+    width: 90%;
+    text-align: left;
+    transition: 0.4s;
+    text-transform: uppercase;
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #722040;
+}
+
+div.accordion-panel {
+    width: 89%;
+    padding: 0 5%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+div.accordion:before {
+    content: "►";
+    color: #f1e5e6;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+div.accordion.active:before {
+    content: "▼";
+}
+
+div.accordion-header {
+    font-size: 7pt;
+    margin-top: 10px;
+    border-bottom: 1px solid currentColor;
+    text-transform: uppercase;
+}
+
+.word-panel {
+    height: 200px;
+    overflow: scroll;
+}
+
+.object-panel {
+    height: 400px;
+    overflow: scroll;
+}
+
+.property-block {
+    margin: 0 10px;
+}

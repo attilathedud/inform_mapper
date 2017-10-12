@@ -1,0 +1,2 @@
+graft inform_mapper/templates
+graft inform_mapper/static
