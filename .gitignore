@@ -1,6 +1,10 @@
+# Python stuff
 venv/
-
-.vscode/
-
 *.egg-info
 *.pyc
+
+# VSCode settings
+.vscode/
+
+# Node stuff for gulp
+node_modules/
