@@ -4,8 +4,13 @@ var minify = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var merge = require('merge-stream');
 var plumber = require('gulp-plumber');
+var del = require('del');
 
-gulp.task('styles', function() {
+gulp.task('clean', function () {
+    return del('inform_mapper/static/css/style.min.css');
+});
+
+gulp.task('styles', ['clean'],  function() {
 	var scss_stream = gulp.src('inform_mapper/static/scss/*.scss')
 		.pipe(plumber())
 		.pipe(sass())

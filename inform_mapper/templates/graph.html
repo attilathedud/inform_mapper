@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="accordion">Header</div>
-            <div class="accordion-panel">
+            <div class="panel">
                 <div class="accordion-header">File Information</div>
                 <div>Version<span class="u-pull-right">{{header.version}}</span></div>
                 <div>File Length<span class="u-pull-right">0x{{header.file_length}}</span></div>
@@ -30,7 +30,7 @@
 
         <div class="row">
             <div class="accordion">Dictionary</div>
-            <div class="accordion-panel">
+            <div class="panel">
                 <div class="accordion-header">Dictionary Information</div>
                 <div>Separator Length<span class="u-pull-right">{{dictionary.separator_length}}</span></div>
                 <div>Separator<span class="u-pull-right">{{dictionary.separator}}</span></div>
@@ -39,28 +39,28 @@
 
                 <div class="accordion-header">Words</div>
                 <div class="word-panel">
-                <div class="u-pull-left">
-                    {% for i in range(0, dictionary.entries, 2 )%}
-                        <div class="row">
-                            <span>[{{dictionary.words[i][0]}}]&emsp;{{dictionary.words[i][1]}}</span>
-                        </div>
-                    {% endfor %}
+                    <div class="u-pull-left">
+                        {% for i in range(0, dictionary.entries, 2 )%}
+                            <div class="row">
+                                <span>[{{dictionary.words[i][0]}}]&emsp;{{dictionary.words[i][1]}}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="u-pull-right">
+                        {% for i in range(1, dictionary.entries, 2 )%}
+                            <div class="row">
+                                <span>[{{dictionary.words[i][0]}}]&emsp;{{dictionary.words[i][1]}}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="u-pull-right">
-                    {% for i in range(1, dictionary.entries, 2 )%}
-                        <div class="row">
-                            <span>[{{dictionary.words[i][0]}}]&emsp;{{dictionary.words[i][1]}}</span>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
                 &nbsp;
             </div>
         </div>
 
         <div class="row">
             <div class="accordion">Objects</div>
-            <div class="accordion-panel">
+            <div class="panel">
                 <div class="accordion-header">Object Information</div>
                 <div>Object Count<span class="u-pull-right">{{objects|length}}</span></div>
                 <div class="accordion-header">Objects</div>

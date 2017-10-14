@@ -1,6 +1,10 @@
+@import 'colors';
+
+$info-box-width: 25%;
+
 #info-box {
     height: 100%;
-    width: 26%;
+    width: $info-box-width;
     position: absolute;
     left: 0;
     top: 0;
@@ -10,9 +14,9 @@
 
 #cy {
     height: 100%;
-    width: 74%;
+    width: 100% - $info-box-width;
     position: absolute;
-    left: 26%;
+    left: $info-box-width;
     top: 0;
 }
 
@@ -22,8 +26,8 @@
 }
 
 div.accordion {
-    background-color: #d3394c;
-    color: #f1e5e6;
+    background-color: $primary-color;
+    color: $text-color;
     cursor: pointer;
     padding: 0.625rem 1.25rem;
     width: 90%;
@@ -33,29 +37,29 @@ div.accordion {
     -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
-}
 
-button.accordion.active, button.accordion:hover {
-    background-color: #722040;
-}
+    &:hover {
+        background-color: $focus-color;
+    }
 
-div.accordion-panel {
-    width: 89%;
-    padding: 0 5%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-}
+    &:before {
+        content: "►";
+        color: $text-color;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 
-div.accordion:before {
-    content: "►";
-    color: #f1e5e6;
-    margin-left: 5px;
-    margin-right: 5px;
-}
+    &.active:before {
+        content: "▼";
+    }
 
-div.accordion.active:before {
-    content: "▼";
+    & + div.panel {
+        width: 90%;
+        padding: 0 5%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
 }
 
 div.accordion-header {
