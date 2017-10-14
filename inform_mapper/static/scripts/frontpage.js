@@ -1,34 +1,38 @@
-/*
-	By Osvaldas Valutis, www.osvaldas.info
-	Available for use under the MIT License
-*/
-
 'use strict';
 
-;( function ( document, window, index )
-{
-	var inputs = document.querySelectorAll( '.inputfile' );
-	Array.prototype.forEach.call( inputs, function( input )
-	{
-		var label	 = input.nextElementSibling,
-			labelVal = label.innerHTML;
+(function( document, window, undefined ) {
+	/*!
+	*	Modified code based on the file upload code by Osvaldas Valutis, www.osvaldas.info
+	*/
+	var input = document.getElementsByClassName( 'input-file' )[ 0 ];
+	var upload = document.getElementsByClassName( 'submit-file-button')[ 0 ];
 
-		input.addEventListener( 'change', function( e )
-		{
-			var fileName = '';
-			if( this.files && this.files.length > 1 )
-				fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-			else
-				fileName = e.target.value.split( '\\' ).pop();
+	var label = input.nextElementSibling;
+	var old_label_val = label.innerHTML;
 
-			if( fileName )
-				label.querySelector( 'span' ).innerHTML = fileName;
-			else
-				label.innerHTML = labelVal;
-		});
+	input.addEventListener( 'change', function( e ) {
+		var filename = '';
 
-		// Firefox bug fix
-		input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
-		input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+		if( this.files.length > 0 ) {
+			filename = e.target.value.split( '\\' ).pop();
+		}
+
+		if( filename ) {
+			label.querySelector( 'span' ).innerHTML = filename;
+		}
+		else {
+			label.innerHTML = old_label_val;
+		}
+
+		if( this.files.length > 0 ) {
+			upload.style.display = 'inline-block';
+			upload.style.left = input.scrollWidth + upload.scrollWidth + 5 + "px";
+			upload.focus();
+		}
 	});
-}( document, window, 0 ));
+
+	// Firefox bug fix
+	input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+	input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+
+}(document, window));

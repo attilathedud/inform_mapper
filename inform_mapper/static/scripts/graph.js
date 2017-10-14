@@ -1,3 +1,5 @@
+'use strict';
+
 var id_nodes = document.getElementsByClassName("object_id");
 var description_nodes = document.getElementsByClassName("object_description");
 var parent_nodes = document.getElementsByClassName("object_parent");
