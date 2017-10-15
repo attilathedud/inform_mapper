@@ -32,7 +32,15 @@ $info-box-width: 25%;
         top: 35%;
         left: 30%;
     }
+}
 
+.bottom-row {
+    position: absolute;
+    bottom: 0;
+
+    >a {
+        text-decoration: none;
+    }
 }
 
 .search-box-container {
@@ -107,6 +115,7 @@ div.accordion-header {
     margin: 0 10px;
 }
 
+/* Animation for loading icon */
 @keyframes lds-rolling {
     0% {
         -webkit-transform: translate(-50%, -50%) rotate(0deg);
