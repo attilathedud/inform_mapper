@@ -2,6 +2,7 @@
 
 $info-box-width: 25%;
 
+/* Main page elements */
 #info-box {
     height: 90%;
     width: $info-box-width;
@@ -11,14 +12,6 @@ $info-box-width: 25%;
     border-right: 1px solid $background-contrast;
     overflow: scroll;
     margin-top: 10px;
-}
-
-#cy {
-    height: 100%;
-    width: 100% - $info-box-width;
-    position: absolute;
-    left: $info-box-width;
-    top: 0;
 }
 
 #loading {
@@ -82,6 +75,23 @@ div.home-link {
     }
 }
 
+/* Highlighting style */
+
+.highlight {
+    background-color: #e7ed59;
+    padding: 5px;
+}
+
+/* Graph container */
+#cy {
+    height: 100%;
+    width: 100% - $info-box-width;
+    position: absolute;
+    left: $info-box-width;
+    top: 0;
+}
+
+/* Accordion */
 div.accordion {
     background-color: $primary-color;
     color: $text-color;
