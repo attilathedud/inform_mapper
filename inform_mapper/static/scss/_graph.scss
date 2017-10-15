@@ -54,6 +54,32 @@ $info-box-width: 25%;
 #search-box {
     width: 100%;
     margin-top: 10px;
+    padding-left: 15%;
+}
+
+.search-icon {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 20pt;
+}
+
+div.home-link {
+    background-color: $primary-color;
+    color: $text-color;
+    cursor: pointer;
+    padding: 0.625rem 1.25rem;
+    width: 90%;
+    text-align: left;
+    transition: 0.4s;
+    text-transform: uppercase;
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+
+    &:hover {
+        background-color: $focus-color;
+    }
 }
 
 div.accordion {
