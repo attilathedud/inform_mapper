@@ -89,8 +89,9 @@
     </div>
 </div>
 
+<script type="text/javascript" src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='scripts/cytoscape.min.js') }}"></script>
-<script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/1.6.5/cytoscape-cose-bilkent.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/cytoscape-cose-bilkent.js') }}"></script>
 
 <script type="text/javascript" src="{{ url_for('static', filename='scripts/graph.js') }}"></script>
 {% endblock %}

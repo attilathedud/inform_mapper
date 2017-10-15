@@ -1,0 +1,53 @@
+[
+    {
+        "selector" : "node",
+        "style" : {
+            "content" : "data(name)",
+            "text-valign" : "center",
+            "color" : "white",
+            "text-outline-width" : 2,
+            "background-color" : "#000",
+            "text-outline-color" : "#000"
+        }
+    },
+
+    {
+        "selector" : "edge",
+        "style" : {
+            "curve-style" : "bezier",
+            "label" : "data(label)",
+            "target-arrow-shape" : "triangle",
+            "target-arrow-color" : "#000",
+            "line-color" : "#000",
+            "width" : 1,
+            "color" : "white",
+            "text-outline-width" : 2,
+            "background-color" : "#000",
+            "text-outline-color" : "#000"
+        }
+    },
+
+    {
+        "selector" : ".multiline-auto",
+        "style" : {
+            "text-wrap" : "wrap",
+            "text-max-width" : 80
+        }
+    },
+
+    {
+        "selector" : ".autorotate",
+        "style" : {
+            "edge-text-rotation" : "autorotate"
+        }
+    },
+
+    {
+        "selector" : ".edge-direction",
+        "style" : {
+            "width" : 3,
+            "line-color" : "#d3394c",
+            "target-arrow-color" : "#d3394c"
+        }
+    }
+]
