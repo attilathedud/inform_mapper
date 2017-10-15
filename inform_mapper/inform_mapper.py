@@ -17,11 +17,11 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
-            return redirect(request.url)
+            return render_template('frontpage.html', errorcode="No file uploaded.")
 
         uploaded_file = request.files['file']
         if uploaded_file.filename == '':
-            return redirect(request.url)
+            return render_template('frontpage.html', errorcode="File upload failed.")
 
         if uploaded_file and allowed_file(uploaded_file.filename):
             header = get_header_info(uploaded_file)
