@@ -16,6 +16,11 @@
 		display_window.scrollTop = display_window.scrollHeight;
 	}
 
+	/* Check for canvas and es5 support */
+	if( !Modernizr.canvas && !Modernizr.es5 ) {
+		append_text_to_display_window('<h5>Warning</h5><p>To use this site, your browser needs to support canvas and es5.</p>')
+	}
+
 	/* Wire up the command pallet */
 	command_pallet.focus();
 
