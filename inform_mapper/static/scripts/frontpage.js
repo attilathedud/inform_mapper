@@ -26,7 +26,7 @@
 
 		if( this.files.length > 0 ) {
 			upload.style.display = 'inline-block';
-			upload.style.left = input.scrollWidth + upload.scrollWidth + 5 + "px";
+			upload.style.left = input.scrollWidth + upload.scrollWidth + 18 + "px";
 			upload.focus();
 		}
 	});
