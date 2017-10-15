@@ -86,8 +86,7 @@
             var cy = cytoscape({
                 container: document.querySelector('#cy'),
             
-                boxSelectionEnabled: false,
-                autounselectify: true,
+                boxSelectionEnabled: true,
             
                 style: style,
             
@@ -103,6 +102,10 @@
                     tilingPaddingVertical: 20,
                     tilingPaddingHorizontal: 20
                 }
+            });
+            
+            cy.ready( function( e ) {
+                document.getElementById('loading').style.display = 'none';
             });
         }); 
 
@@ -120,5 +123,11 @@
                 panel.style.maxHeight = panel.scrollHeight + "px";
             } 
         });
-    }    
+    } 
+    
+    /* Wire up search box */
+    var search_box = document.getElementById('search-box');
+
+    search_box.focus();
+    
 }(document, window));

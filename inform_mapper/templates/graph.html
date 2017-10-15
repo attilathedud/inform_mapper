@@ -1,13 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<div style="width:100%;height:100%" id="loading" class="lds-rolling">
+    <div></div>
+</div>
+
 <div id="cy"></div>
 
-<div id="info-box">
+<div class="search-box-container">
     <div class="container">
         <div class="row">
             <input id="search-box" type="text" /> 
         </div>
+    </div>
+</div>
+
+<div id="info-box">
+    <div class="container">
         <div class="row">
             <div class="accordion">Header</div>
             <div class="panel">
