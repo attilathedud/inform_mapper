@@ -78,7 +78,7 @@ div.home-link {
 /* Highlighting style */
 
 .highlight {
-    background-color: #e7ed59;
+    background-color: $highlight-color;
     padding: 5px;
 }
 
@@ -126,6 +126,11 @@ div.accordion {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.2s ease-out;
+    }
+
+    & > .highlight {
+        background-color: $primary-color;
+        border: 1px solid $highlight-color;
     }
 }
 
