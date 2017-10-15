@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, jsonify
 from .inform_tools import get_header_info, get_dictionary_info, get_object_info
 
 app = Flask(__name__)
@@ -28,4 +28,6 @@ def upload_file():
             dictionary = get_dictionary_info(uploaded_file, header.dictionary_address)
             objects = get_object_info(uploaded_file, header.object_table)
 
-    return render_template('graph.html', header=header, dictionary=dictionary, objects=objects)
+            return render_template('graph.html', header=header, dictionary=dictionary, objects=objects)
+
+    return render_template('frontpage.html', errorcode="Invalid file type uploaded.")

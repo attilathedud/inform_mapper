@@ -4,10 +4,10 @@
 <div class="row navbar">
     <ul class="navigation">
         <li>
-            <a href="#">About</a>
+            <a id="about-link" href="#">About</a>
         </li>
         <li>
-            <a href="#">Contact</a>
+            <a id="contact-link" href="#">Contact</a>
         </li>
         <li>
             <a href="https://github.com/attilathedud/inform_mapper">GitHub</a>
@@ -15,15 +15,53 @@
     </ul>
 </div>
 
+<div id="about-text">
+    <h5>About</h5>
+
+    <p>
+        Remember those old text adventure games where you would type in what you wanted your character to do?
+        Those games came in many formats, but one of the most popular was the Inform format. Even though the
+        company that created it, Infocom, went bankrupt, the Inform format was reverse-engineered and recreated, 
+        so even many modern adventure games use it. 
+        <br/>
+        <img src="../static/imgs/adventureland.png"/>
+        <br/>
+        Since the format is well-understood and well-structured, it's possible to map out all the nodes in
+        a game along with how they connect. That's what this site does. Inform files end with the .z1-.z8
+        extension or the .zblorb extension. You can find a list of games at <a href="http://ifdb.tads.org/">ifdb</a>
+        and <a href="http://ifarchive.org/if-archive/games/zcode/">ifarchive</a>.
+        <br/>
+        <br/>
+        You're confused. Choose an inform file below or type `choose` and hit enter.
+    </p>
+</div>
+
+<div id="contact-text">
+    <h5>Contact</h5>
+
+    <p>
+        Something wrong? Contact me at attilathedud at gmail dot com.
+
+        <br/>
+        <br/>
+        You're confused. Choose an inform file below or type `choose` and hit enter.
+    </p>
+</div>
+
 <div class="container">
     <div class="row">
         <h2>Inform Mapper</h2>
     </div>
-    <div class="row">
-        <p>You're confused. Upload a inform file below.</p>
+    <div id="display-window" class="row">
+        <p>You're confused. Choose an inform file below or type `choose` and hit enter.</p>
+
+        {% if errorcode %}
+            <h5>Error</h5>
+            <p>{{errorcode}}</p>
+        {% endif %}
     </div>
     <div class="row">
-        &gt;<span class="blinking-cursor">|</span>
+        &gt;<input type="text" name="command" id="command" class="command-pallet"/>
     </div>
     <div class="row">&nbsp;</div>
     <div class="row">

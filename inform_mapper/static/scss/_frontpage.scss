@@ -81,59 +81,19 @@
     }
 }
 
-/* Blinking cursor effect on main page */
-.blinking-cursor {
-    margin-left: 5px;
-    -webkit-animation: 1s blink step-end infinite;
-    -moz-animation: 1s blink step-end infinite;
-    -ms-animation: 1s blink step-end infinite;
-    -o-animation: 1s blink step-end infinite;
-    animation: 1s blink step-end infinite;
+/* Command pallet and display window */
+.command-pallet {
+    background: transparent !important;
+    border: 0 !important;
 }
 
-@keyframes "blink" {
-    from, to {
-        color: transparent;
-    }
-    50% {
-        color: black;
-    }
+#display-window {
+    max-height: 50vh;
+    overflow: scroll;
 }
 
-@-moz-keyframes blink {
-    from, to {
-        color: transparent;
-    }
-    50% {
-        color: black;
-    }
-}
-
-@-webkit-keyframes "blink" {
-    from, to {
-        color: transparent;
-    }
-    50% {
-        color: black;
-    }
-}
-
-@-ms-keyframes "blink" {
-    from, to {
-        color: transparent;
-    }
-    50% {
-        color: black;
-    }
-}
-
-@-o-keyframes "blink" {
-    from, to {
-        color: transparent;
-    }
-    50% {
-        color: black;
-    }
+#about-text, #contact-text {
+    display: none;
 }
 
 /* Navigation stuff */
