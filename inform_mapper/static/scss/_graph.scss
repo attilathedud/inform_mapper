@@ -134,6 +134,7 @@ div.accordion {
     }
 }
 
+/* Accordion in-elements */
 div.accordion-header {
     font-size: 7pt;
     margin-top: 10px;
@@ -154,6 +155,15 @@ div.accordion-header {
 
 .property-block {
     margin: 0 10px;
+}
+
+/* Help text */
+.help-text {
+    color: $background-contrast;
+    position: absolute;
+    top: 0;
+    left: $info-box-width;
+    margin-left: 10px;
 }
 
 /* Animation for loading icon */
