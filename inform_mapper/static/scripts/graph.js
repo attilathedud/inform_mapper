@@ -103,11 +103,24 @@
                     idealEdgeLength: 200,
                     tilingPaddingVertical: 20,
                     tilingPaddingHorizontal: 20
-                }
+                },
             });
             
             cy.ready( function( e ) {
                 document.getElementById('loading').style.display = 'none';
+            });
+
+            cy.on( 'select', function( event ) {
+                if( event.target === cy ) {
+                    cy.$().removeClass('selected');
+                }
+                else {
+                    event.target.addClass('selected');
+                }
+            });
+
+            cy.on( 'tap', function( event ) {
+                cy.$().removeClass('selected');
             });
         }); 
 

@@ -63,5 +63,13 @@
         "style" : {
             "opacity" : "0.1"
         }
+    },
+
+    {
+        "selector" : ".selected",
+        "style" : {
+            "background-color" : "#e7ed59",
+            "padding" : 10
+        }
     }
 ]
