@@ -137,6 +137,8 @@
     
     var finder;
     var previous_hidden_elements;
+    var previous_pan;
+    var previous_zoom;
 
     search_box.addEventListener( 'keypress', function( e ) {
         if( e.which == 13 ) {
@@ -147,6 +149,11 @@
             cy.batch( function() {
                 if( previous_hidden_elements ) {
                     previous_hidden_elements.removeClass('hidden');
+
+                    cy.viewport({
+                        zoom: previous_zoom,
+                        pan: previous_pan
+                    });
                 }
             });
 
@@ -156,6 +163,11 @@
                     previous_hidden_elements = cy.elements().not( found );
     
                     previous_hidden_elements.addClass('hidden');
+
+                    previous_pan = cy.pan();
+                    previous_zoom = cy.zoom();
+
+                    cy.fit( found );
                 });
 
                 finder = findAndReplaceDOMText(document.getElementById('info-box'), {
