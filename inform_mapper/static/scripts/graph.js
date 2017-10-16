@@ -151,84 +151,106 @@
     var finder;
     var previous_hidden_elements;
 
-    search_box.addEventListener( 'keypress', function( e ) {
-        if( e.which == 13 ) {
-            if( finder ) {
-                finder.revert();
+    function init_search() {
+        if( finder ) {
+            finder.revert();
+        }
+
+        cy.batch( function() {
+            if( previous_hidden_elements ) {
+                previous_hidden_elements.removeClass('hidden-transparent');
+
+                cy.animate({
+                    fit : {
+                        eles: cy.$(),
+                        padding: 20
+                    }
+                }, {
+                    duration: 500
+                });
             }
+        });
 
-            cy.batch( function() {
-                if( previous_hidden_elements ) {
-                    previous_hidden_elements.removeClass('hidden-transparent');
+        if( search_box.value.replace(' ', '').length > 0 ) {
+            cy.batch( function( ){
+                var found = cy.$( 'node[name @*="' + search_box.value + '"]' ).closedNeighborhood();
+                previous_hidden_elements = cy.elements().not( found );
 
-                    cy.animate({
-                        fit : {
-                            eles: cy.$(),
-                            padding: 20
-                        }
-                    }, {
-                        duration: 500
-                    });
-                }
+                previous_hidden_elements.addClass('hidden-transparent');
+
+                cy.animate({
+                    fit: {
+                        eles: found,
+                        padding: 20
+                    }
+                }, {
+                    duration: 500
+                });
             });
 
-            if( search_box.value.replace(' ', '').length > 0 ) {
-                cy.batch( function( ){
-                    var found = cy.$( 'node[name @*="' + search_box.value + '"]' ).closedNeighborhood();
-                    previous_hidden_elements = cy.elements().not( found );
-    
-                    previous_hidden_elements.addClass('hidden-transparent');
+            finder = findAndReplaceDOMText(document.getElementById('info-box'), {
+                find: new RegExp(search_box.value, "gi"),
+                wrap: 'span',
+                wrapClass: 'highlight'
+            });
 
-                    cy.animate({
-                        fit: {
-                            eles: found,
-                            padding: 20
-                        }
-                    }, {
-                        duration: 500
-                    });
-                });
-
-                finder = findAndReplaceDOMText(document.getElementById('info-box'), {
-                    find: new RegExp(search_box.value, "gi"),
-                    wrap: 'span',
-                    wrapClass: 'highlight'
-                });
-    
-                for( var i = 0; i < accordion_elements.length; i++ ) {
-                    if( accordion_elements[ i ].classList.contains( 'active' ) ) {
-                        accordion_elements[ i ].click();
-                    }
-                }
-    
-                var word_panel_set = false;
-                var object_panel_set = false;
-                var selections = document.getElementsByClassName( 'highlight' );
-
-                for( var i = 0; i < selections.length; i++ ) {
-                    var cur_selection_parent = selections[ i ];
-    
-                    while( cur_selection_parent && cur_selection_parent.classList &&
-                        (!cur_selection_parent.classList.contains( 'panel' ) && !cur_selection_parent.classList.contains( 'accordion' ) ) ) {
-                            if( !word_panel_set && cur_selection_parent.classList.contains( 'word-panel' )) {
-                                cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
-                                word_panel_set = true;
-                            }
-        
-                            if( !object_panel_set && cur_selection_parent.classList.contains( 'object-panel' )) {
-                                cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
-                                object_panel_set = true;
-                            }
-                            
-                            cur_selection_parent = cur_selection_parent.parentNode;
-                    }
-    
-                    if( !cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].classList.contains( 'active' ) ) {
-                        cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].click();
-                    }   
+            for( var i = 0; i < accordion_elements.length; i++ ) {
+                if( accordion_elements[ i ].classList.contains( 'active' ) ) {
+                    accordion_elements[ i ].click();
                 }
             }
+
+            var word_panel_set = false;
+            var object_panel_set = false;
+            var selections = document.getElementsByClassName( 'highlight' );
+
+            for( var i = 0; i < selections.length; i++ ) {
+                var cur_selection_parent = selections[ i ];
+
+                while( cur_selection_parent && cur_selection_parent.classList &&
+                    (!cur_selection_parent.classList.contains( 'panel' ) && !cur_selection_parent.classList.contains( 'accordion' ) ) ) {
+                        if( !word_panel_set && cur_selection_parent.classList.contains( 'word-panel' )) {
+                            cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
+                            word_panel_set = true;
+                        }
+    
+                        if( !object_panel_set && cur_selection_parent.classList.contains( 'object-panel' )) {
+                            cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
+                            object_panel_set = true;
+                        }
+                        
+                        cur_selection_parent = cur_selection_parent.parentNode;
+                }
+
+                if( !cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].classList.contains( 'active' ) ) {
+                    cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].click();
+                }   
+            }
         }
+    }
+
+    search_box.addEventListener( 'keypress', function( e ) {
+        if( e.which == 13 ) {
+            search_box.select();
+            init_search();
+        }
+    });
+
+    var clear_icon = document.getElementsByClassName('clear-icon')[ 0 ];
+
+    search_box.addEventListener('keyup', function( e ) {
+        if( search_box.value.replace(' ', '').length > 0 ) {
+            clear_icon.style.display = 'block';
+        }
+        else {
+            clear_icon.style.display = 'none';
+        }
+    });
+
+    clear_icon.addEventListener('click', function( e ) {
+        search_box.value = '';
+        clear_icon.style.display = 'none';
+        init_search();
     });
     
 }(document, window));
