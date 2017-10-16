@@ -137,8 +137,6 @@
     
     var finder;
     var previous_hidden_elements;
-    var previous_pan;
-    var previous_zoom;
 
     search_box.addEventListener( 'keypress', function( e ) {
         if( e.which == 13 ) {
@@ -148,11 +146,15 @@
 
             cy.batch( function() {
                 if( previous_hidden_elements ) {
-                    previous_hidden_elements.removeClass('hidden');
+                    previous_hidden_elements.removeClass('hidden-transparent');
 
-                    cy.viewport({
-                        zoom: previous_zoom,
-                        pan: previous_pan
+                    cy.animate({
+                        fit : {
+                            eles: cy.$(),
+                            padding: 20
+                        }
+                    }, {
+                        duration: 500
                     });
                 }
             });
@@ -162,12 +164,16 @@
                     var found = cy.$( 'node[name @*="' + search_box.value + '"]' ).closedNeighborhood();
                     previous_hidden_elements = cy.elements().not( found );
     
-                    previous_hidden_elements.addClass('hidden');
+                    previous_hidden_elements.addClass('hidden-transparent');
 
-                    previous_pan = cy.pan();
-                    previous_zoom = cy.zoom();
-
-                    cy.fit( found );
+                    cy.animate({
+                        fit: {
+                            eles: found,
+                            padding: 20
+                        }
+                    }, {
+                        duration: 500
+                    });
                 });
 
                 finder = findAndReplaceDOMText(document.getElementById('info-box'), {

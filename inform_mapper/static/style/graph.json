@@ -56,5 +56,12 @@
         "style" : {
             "display" : "none"
         }
+    },
+
+    {
+        "selector" : ".hidden-transparent",
+        "style" : {
+            "opacity" : "0.1"
+        }
     }
 ]
