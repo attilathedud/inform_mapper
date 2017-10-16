@@ -77,13 +77,15 @@
         }
     }
 
+    var cy;
+
     /* Generate the graph */
     fetch('static/style/graph.json', {mode: 'no-cors'})
         .then( function( res ) {
             return res.json()
         }) 
         .then( function( style ) {
-            var cy = cytoscape({
+            cy = cytoscape({
                 container: document.querySelector('#cy'),
             
                 boxSelectionEnabled: true,
@@ -134,6 +136,7 @@
     })
     
     var finder;
+    var previous_hidden_elements;
 
     search_box.addEventListener( 'keypress', function( e ) {
         if( e.which == 13 ) {
@@ -141,7 +144,20 @@
                 finder.revert();
             }
 
+            cy.batch( function() {
+                if( previous_hidden_elements ) {
+                    previous_hidden_elements.removeClass('hidden');
+                }
+            });
+
             if( search_box.value.replace(' ', '').length > 0 ) {
+                cy.batch( function( ){
+                    var found = cy.$( 'node[name @*="' + search_box.value + '"]' ).closedNeighborhood();
+                    previous_hidden_elements = cy.elements().not( found );
+    
+                    previous_hidden_elements.addClass('hidden');
+                });
+
                 finder = findAndReplaceDOMText(document.getElementById('info-box'), {
                     find: new RegExp(search_box.value, "gi"),
                     wrap: 'span',

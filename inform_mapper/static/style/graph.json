@@ -49,5 +49,12 @@
             "line-color" : "#d3394c",
             "target-arrow-color" : "#d3394c"
         }
+    },
+
+    {
+        "selector" : ".hidden",
+        "style" : {
+            "display" : "none"
+        }
     }
 ]
