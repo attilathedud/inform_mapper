@@ -48,7 +48,6 @@
         }
     }
 
-    //if compass nav turned on
     var compass_node = -1;
     var compass_directions = {}
 
@@ -160,14 +159,16 @@
             if( previous_hidden_elements ) {
                 previous_hidden_elements.removeClass('hidden-transparent');
 
-                cy.animate({
-                    fit : {
-                        eles: cy.$(),
-                        padding: 20
-                    }
-                }, {
-                    duration: 500
-                });
+                if( document.getElementById('chkzoompan').checked ) {
+                    cy.animate({
+                        fit : {
+                            eles: cy.$(),
+                            padding: 20
+                        }
+                    }, {
+                        duration: 500
+                    });
+                }
             }
         });
 
@@ -177,15 +178,17 @@
                 previous_hidden_elements = cy.elements().not( found );
 
                 previous_hidden_elements.addClass('hidden-transparent');
-
-                cy.animate({
-                    fit: {
-                        eles: found,
-                        padding: 20
-                    }
-                }, {
-                    duration: 500
-                });
+            
+                if( document.getElementById('chkzoompan').checked ) {
+                    cy.animate({
+                        fit: {
+                            eles: found,
+                            padding: 20
+                        }
+                    }, {
+                        duration: 500
+                    });
+                }
             });
 
             finder = findAndReplaceDOMText(document.getElementById('info-box'), {
@@ -194,37 +197,39 @@
                 wrapClass: 'highlight'
             });
 
-            for( var i = 0; i < accordion_elements.length; i++ ) {
-                if( accordion_elements[ i ].classList.contains( 'active' ) ) {
-                    accordion_elements[ i ].click();
+            if( document.getElementById('chkscrolltext').checked ) {
+                for( var i = 0; i < accordion_elements.length; i++ ) {
+                    if( accordion_elements[ i ].classList.contains( 'active' ) ) {
+                        accordion_elements[ i ].click();
+                    }
                 }
-            }
-
-            var word_panel_set = false;
-            var object_panel_set = false;
-            var selections = document.getElementsByClassName( 'highlight' );
-
-            for( var i = 0; i < selections.length; i++ ) {
-                var cur_selection_parent = selections[ i ];
-
-                while( cur_selection_parent && cur_selection_parent.classList &&
-                    (!cur_selection_parent.classList.contains( 'panel' ) && !cur_selection_parent.classList.contains( 'accordion' ) ) ) {
-                        if( !word_panel_set && cur_selection_parent.classList.contains( 'word-panel' )) {
-                            cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
-                            word_panel_set = true;
-                        }
     
-                        if( !object_panel_set && cur_selection_parent.classList.contains( 'object-panel' )) {
-                            cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
-                            object_panel_set = true;
-                        }
-                        
-                        cur_selection_parent = cur_selection_parent.parentNode;
+                var word_panel_set = false;
+                var object_panel_set = false;
+                var selections = document.getElementsByClassName( 'highlight' );
+    
+                for( var i = 0; i < selections.length; i++ ) {
+                    var cur_selection_parent = selections[ i ];
+    
+                    while( cur_selection_parent && cur_selection_parent.classList &&
+                        (!cur_selection_parent.classList.contains( 'panel' ) && !cur_selection_parent.classList.contains( 'accordion' ) ) ) {
+                            if( !word_panel_set && cur_selection_parent.classList.contains( 'word-panel' )) {
+                                cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
+                                word_panel_set = true;
+                            }
+        
+                            if( !object_panel_set && cur_selection_parent.classList.contains( 'object-panel' )) {
+                                cur_selection_parent.scrollTop = selections[ i ].offsetTop - cur_selection_parent.offsetTop;
+                                object_panel_set = true;
+                            }
+                            
+                            cur_selection_parent = cur_selection_parent.parentNode;
+                    }
+    
+                    if( !cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].classList.contains( 'active' ) ) {
+                        cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].click();
+                    }   
                 }
-
-                if( !cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].classList.contains( 'active' ) ) {
-                    cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].click();
-                }   
             }
         }
     }
@@ -236,6 +241,7 @@
         }
     });
 
+    /* Wire up clear search button */
     var clear_icon = document.getElementsByClassName('clear-icon')[ 0 ];
 
     search_box.addEventListener('keyup', function( e ) {
@@ -252,5 +258,8 @@
         clear_icon.style.display = 'none';
         init_search();
     });
+
+    /* Wire up options */
+
     
 }(document, window));

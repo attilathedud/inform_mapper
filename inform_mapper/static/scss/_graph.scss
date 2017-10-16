@@ -70,7 +70,7 @@ $info-box-width: 25%;
 }
 
 /* Home link */
-div.home-link {
+div.button {
     background-color: $primary-color;
     color: $text-color;
     cursor: pointer;
@@ -167,6 +167,21 @@ div.accordion-header {
 
 .property-block {
     margin: 0 10px;
+}
+
+input[type="checkbox"] {
+    margin-bottom: 0 !important;
+}
+
+#reset-graph, #download-png {
+    margin-top: 1rem;
+    background-color: transparent !important;
+    color: $background-text-color !important;
+    border: 1px solid $background-text-color !important;
+
+    &:hover {
+        background-color: $background-contrast !important;
+    }
 }
 
 /* Help text */
