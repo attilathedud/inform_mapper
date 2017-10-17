@@ -20,6 +20,7 @@
     var inform_object_floor = document.getElementById( 'inform-object-floor' );
     var reset_graph = document.getElementById('reset-graph');
     var highlight_icon = document.getElementsByClassName('highlight-icon')[ 0 ];
+    var unhighlight_icon = document.getElementsByClassName('unhighlight-icon')[ 0 ];
     var hide_icon = document.getElementsByClassName('hide-icon')[ 0 ];
     var zoom_pan = document.getElementById('zoom-pan');
     
@@ -162,9 +163,14 @@
         zoom_pan.checked = true;
     });
 
+    /* Node info box */
     highlight_icon.addEventListener( 'click', function( e ) {
         graph.clear_highlights( zoom_pan );
         graph.highlight_neighbors( 'node[id ="' + (document.getElementById('node-selected').innerHTML ) + '"]', zoom_pan );
+    });
+
+    unhighlight_icon.addEventListener( 'click', function( e ) {
+        graph.clear_highlights( zoom_pan );
     });
 
     hide_icon.addEventListener( 'click', function( e ) {
