@@ -5,12 +5,13 @@ var sass = require('gulp-sass');
 var merge = require('merge-stream');
 var plumber = require('gulp-plumber');
 var del = require('del');
+var uglify = require('gulp-uglify');
 
-gulp.task('clean', function () {
+gulp.task('clean_styles', function () {
     return del('inform_mapper/static/css/style.min.css');
 });
 
-gulp.task('styles', ['clean'],  function() {
+gulp.task('styles', ['clean_styles'],  function() {
 	var scss_stream = gulp.src('inform_mapper/static/scss/*.scss')
 		.pipe(plumber())
 		.pipe(sass())
@@ -29,8 +30,20 @@ gulp.task('styles', ['clean'],  function() {
 	return mergedStream;
 });
 
-gulp.task('watch', function () {
-	gulp.watch(['inform_mapper/static/css/*.css', 'inform_mapper/static/scss/*.scss', '!inform_mapper/static/css/style.min.css'], ['styles']);
+gulp.task('clean_js', function() {
+	return del('inform_mapper/static/scripts/frontpage.min.js');
 });
 
-gulp.task('default', ['styles']);
+gulp.task('scripts', ['clean_js'], function() {
+	return gulp.src(['inform_mapper/static/scripts/frontpage/modernizr-custom.js', 'inform_mapper/static/scripts/frontpage/frontpage.js'])
+		.pipe(concat('frontpage.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('inform_mapper/static/scripts/'))
+});
+
+gulp.task('watch', function () {
+	gulp.watch(['inform_mapper/static/css/*.css', 'inform_mapper/static/scss/*.scss', '!inform_mapper/static/css/style.min.css'], ['styles']);
+	gulp.watch(['inform_mapper/static/scripts/frontpage/*.js'], ['scripts']);
+});
+
+gulp.task('default', ['styles', 'scripts']);
