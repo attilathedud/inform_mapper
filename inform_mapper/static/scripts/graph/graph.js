@@ -3,12 +3,27 @@
 (function( document, window, undefined ) {
 
     /* Selectors */
-    var id_nodes = document.getElementsByClassName("object_id");
-    var description_nodes = document.getElementsByClassName("object_description");
-    var parent_nodes = document.getElementsByClassName("object_parent");
-    var child_nodes = document.getElementsByClassName("object_child");
-    var property_number_nodes = document.getElementsByClassName("object_property_number");
-    var property_value_nodes = document.getElementsByClassName("object_property_value");
+    var id_nodes = document.getElementsByClassName("object-id");
+    var description_nodes = document.getElementsByClassName("object-description");
+    var parent_nodes = document.getElementsByClassName("object-parent");
+    var child_nodes = document.getElementsByClassName("object-child");
+    var property_number_nodes = document.getElementsByClassName("object-property-number");
+    var property_value_nodes = document.getElementsByClassName("object-property-value");
+    var loading_div = document.getElementById('loading');
+    var node_info_container = document.getElementById('node-info-container');
+    var node_info_box = document.getElementById('node-info-box');
+    var accordion_elements = document.getElementsByClassName("accordion");
+    var search_box = document.getElementById('search-box');
+    var clear_icon = document.getElementsByClassName('clear-icon')[ 0 ];
+    var download_png = document.getElementById( 'download-png' );
+    var compass_routing = document.getElementById( 'compass-routing' );
+    var inform_object_floor = document.getElementById( 'inform-object-floor' );
+    var reset_graph = document.getElementById('reset-graph');
+    var highlight_icon = document.getElementsByClassName('highlight-icon')[ 0 ];
+    var hide_icon = document.getElementsByClassName('hide-icon')[ 0 ];
+    var zoom_pan = document.getElementById('zoom-pan');
+    
+    var cy;
     
     var object_nodes = [];
     var object_edges = [];
@@ -65,7 +80,7 @@
     {
         for( var direction_id in compass_directions ) {
             if( property_number_nodes[ i ].innerHTML == direction_id ) {
-                var object_id = property_number_nodes[ i ].parentNode.parentNode.parentNode.getElementsByClassName('object_id')[ 0 ].innerHTML;
+                var object_id = property_number_nodes[ i ].parentNode.parentNode.parentNode.getElementsByClassName('object-id')[ 0 ].innerHTML;
                 var destination = parseInt( property_value_nodes[ i ].innerHTML, 16 );
                 
                 if( destination > 0 && destination < id_nodes.length) {
@@ -75,8 +90,6 @@
             }
         }
     }
-
-    var cy;
 
     /* Generate the graph */
     fetch('static/style/graph.json', {mode: 'no-cors'})
@@ -107,19 +120,18 @@
             });
             
             cy.ready( function( e ) {
-                document.getElementById('loading').style.display = 'none';
+                loading_div.style.display = 'none';
             });
 
             cy.on( 'select', function( event ) {
                 if( event.target === cy ) {
                     cy.$().removeClass('selected');
-                    document.getElementById('node-info-container').style.display = 'none';
+                    node_info_container.style.display = 'none';
                 }
                 else {
-                    document.getElementById('node-info-container').style.display = 'block';
+                    node_info_container.style.display = 'block';
                     event.target.addClass('selected');
                     
-                    var node_info_box = document.getElementById('node-info-box');
                     var id = event.target.id() - 1;
 
                     if( id ) {
@@ -127,7 +139,7 @@
                         
                         for( var i = 0; i < property_number_nodes.length; i++ ) 
                         {
-                            var object_id = property_number_nodes[ i ].parentNode.parentNode.parentNode.getElementsByClassName('object_id')[ 0 ].innerHTML;
+                            var object_id = property_number_nodes[ i ].parentNode.parentNode.parentNode.getElementsByClassName('object-id')[ 0 ].innerHTML;
     
                             if( object_id > id ) {
                                 break;
@@ -138,7 +150,7 @@
                             }
                         }
     
-                        node_info_box.innerHTML = "<span id='node_selected'>" + id_nodes[ id ].innerHTML + "</span>.\"" + description_nodes[ id ].innerHTML + "\"" + "<br/>" +
+                        node_info_box.innerHTML = "<span id='node-selected'>" + id_nodes[ id ].innerHTML + "</span>.\"" + description_nodes[ id ].innerHTML + "\"" + "<br/>" +
                                                     "Parent: " + parent_nodes[ id ].innerHTML + "<br/>Child: " + child_nodes[ id ].innerHTML +
                                                     "<br/><div class='accordion-header'>Properties</div>" + properties;
                     }
@@ -147,13 +159,11 @@
 
             cy.on( 'tap', function( event ) {
                 cy.$().removeClass('selected');
-                document.getElementById('node-info-container').style.display = 'none';
+                node_info_container.style.display = 'none';
             });
         }); 
 
     /* Wire up the accordion dropdowns */
-    var accordion_elements = document.getElementsByClassName("accordion");
-    
     for (var i = 0; i < accordion_elements.length; i++) {
         accordion_elements[i].addEventListener( 'click', function( e ) {
             this.classList.toggle( 'active' );
@@ -168,7 +178,6 @@
     } 
     
     /* Wire up search box */
-    var search_box = document.getElementById('search-box');
     search_box.focus();
 
     document.addEventListener( 'click', function( e ) {
@@ -187,7 +196,7 @@
             if( previous_hidden_elements ) {
                 previous_hidden_elements.removeClass('hidden-transparent');
 
-                if( document.getElementById('chkzoompan').checked ) {
+                if( zoom_pan.checked ) {
                     cy.animate({
                         fit : {
                             eles: cy.$(),
@@ -207,7 +216,7 @@
 
                 previous_hidden_elements.addClass('hidden-transparent');
             
-                if( document.getElementById('chkzoompan').checked ) {
+                if( zoom_pan.checked ) {
                     cy.animate({
                         fit: {
                             eles: found,
@@ -225,7 +234,7 @@
                 wrapClass: 'highlight'
             });
 
-            if( document.getElementById('chkscrolltext').checked ) {
+            if( document.getElementById('scroll-to-text').checked ) {
                 for( var i = 0; i < accordion_elements.length; i++ ) {
                     if( accordion_elements[ i ].classList.contains( 'active' ) ) {
                         accordion_elements[ i ].click();
@@ -271,8 +280,6 @@
     });
 
     /* Wire up clear search button */
-    var clear_icon = document.getElementsByClassName('clear-icon')[ 0 ];
-
     search_box.addEventListener('keyup', function( e ) {
         if( search_box.value.replace(' ', '').length > 0 ) {
             clear_icon.style.display = 'block';
@@ -291,7 +298,6 @@
     /* Wire up options */
 
     /* Download button */
-    var download_png = document.getElementById( 'download-png' );
     download_png.addEventListener('click', function( e ) {
         var blob = cy.png({
             output: 'blob'
@@ -304,7 +310,6 @@
     });
 
     /* Compass routing */
-    var compass_routing = document.getElementById( 'chkcompassrouting' );
     compass_routing.addEventListener('click', function( e ) {
         cy.batch( function( ){
             var found = cy.edges('edge[?label]');
@@ -321,7 +326,6 @@
     /* Hide nodes */
     var last_selected_index = 0;
 
-    var inform_object_floor = document.getElementById( 'inform_object_floor' );
     inform_object_floor.addEventListener('click', function( e ) {
         e.stopPropagation();
 
@@ -341,7 +345,6 @@
     });
 
     /* Reset graph */
-    var reset_graph = document.getElementById('reset-graph');
     reset_graph.addEventListener('click', function( e ) {
         cy.batch( function() {
             cy.$().removeClass('hidden');
@@ -360,17 +363,16 @@
 
         inform_object_floor.value = "1";
         compass_routing.checked = true;
-        document.getElementById('chkzoompan').checked = true;
+        zoom_pan.checked = true;
     });
 
     /* Wire up info box */
-    var highlight_icon = document.getElementsByClassName('highlight-icon')[ 0 ];
     highlight_icon.addEventListener( 'click', function( e ) {
         cy.batch( function() {
             if( previous_hidden_elements ) {
                 previous_hidden_elements.removeClass('hidden-transparent');
 
-                if( document.getElementById('chkzoompan').checked ) {
+                if( zoom_pan.checked ) {
                     cy.animate({
                         fit : {
                             eles: cy.$(),
@@ -384,12 +386,12 @@
         });
 
         cy.batch( function( ){
-            var found = cy.$( 'node[id ="' + (document.getElementById('node_selected').innerHTML ) + '"]' ).closedNeighborhood();
+            var found = cy.$( 'node[id ="' + (document.getElementById('node-selected').innerHTML ) + '"]' ).closedNeighborhood();
             previous_hidden_elements = cy.elements().not( found );
 
             previous_hidden_elements.addClass('hidden-transparent');
         
-            if( document.getElementById('chkzoompan').checked ) {
+            if( zoom_pan.checked ) {
                 cy.animate({
                     fit: {
                         eles: found,
@@ -402,9 +404,8 @@
         });
     });
 
-    var hide_icon = document.getElementsByClassName('hide-icon')[ 0 ];
     hide_icon.addEventListener( 'click', function( e ) {
-        var found = cy.$( 'node[id ="' + (document.getElementById('node_selected').innerHTML ) + '"]' );
+        var found = cy.$( 'node[id ="' + (document.getElementById('node-selected').innerHTML ) + '"]' );
         found.addClass('hidden');
         document.getElementById('node-info-container').style.display = 'none';
     });

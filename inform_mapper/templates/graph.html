@@ -86,8 +86,8 @@
                 <div class="object-panel">
                     {% for object in objects %}
                         <div>
-                            <div><span class="object_id">{{object.id}}</span>. "<span class="object_description">{{object.description}}</span>"</div>
-                            <div>Parent: <span class="object_parent">{{object.parent}}</span>&emsp;Sibling: <span class="object_sibling">{{object.sibling}}</span>&emsp;Child: <span class="object_child">{{object.child}}</span></div>
+                            <div><span class="object-id">{{object.id}}</span>. "<span class="object-description">{{object.description}}</span>"</div>
+                            <div>Parent: <span class="object-parent">{{object.parent}}</span>&emsp;Sibling: <span class="object-sibling">{{object.sibling}}</span>&emsp;Child: <span class="object-child">{{object.child}}</span></div>
                             {% if object.attributes|length > 0 %}
                                 <div>Attributes<span class="u-pull-right">{{object.attributes}}</span></div>
                             {% endif %}
@@ -95,7 +95,7 @@
                                 <div class="accordion-header">Properties<span class="u-pull-right">0x{{object.properties}}</span></div>
                                 <div class="property-block">
                                     {% for property in object.property_list %}
-                                        <div><span class="object_property_number">{{ property[ 0 ] }}</span> <span class="u-pull-right object_property_value">0x{{ property[ 1 ] }}</span></div>
+                                        <div><span class="object-property-number">{{ property[ 0 ] }}</span> <span class="u-pull-right object-property-value">0x{{ property[ 1 ] }}</span></div>
                                     {% endfor %}
                                 </div>
                             {% endif %}
@@ -111,18 +111,18 @@
             <div class="accordion">Settings</div>
             <div class="panel">
                 <div class="accordion-header">Info Box</div>
-                <div>Scroll to Text on Search<span class="u-pull-right"><input type="checkbox" id="chkscrolltext" checked="true" /></span></div>
+                <div>Scroll to Text on Search<span class="u-pull-right"><input type="checkbox" id="scroll-to-text" checked="true" /></span></div>
 
                 <div class="accordion-header">Graph</div>
-                <div>Zoom/Pan Graph on Search<span class="u-pull-right"><input type="checkbox" id="chkzoompan" checked /></span></div>
+                <div>Zoom/Pan Graph on Search<span class="u-pull-right"><input type="checkbox" id="zoom-pan" checked /></span></div>
                 <div>Hide Inform Objects Up to<span class="u-pull-right">
-                    <select id="inform_object_floor">
+                    <select id="inform-object-floor">
                         {% for i in range(1, 30) %}
                             <option value="{{i}}">{{i}}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div>Compass Routing<span class="u-pull-right"><input type="checkbox" id="chkcompassrouting" checked /></span></div>
+                <div>Compass Routing<span class="u-pull-right"><input type="checkbox" id="compass-routing" checked /></span></div>
                 <div id="reset-graph" class="button">Reset Graph</div>
                 <div id="download-png" class="button">Download PNG</div>
 

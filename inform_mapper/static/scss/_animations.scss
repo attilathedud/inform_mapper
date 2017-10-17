@@ -1,0 +1,66 @@
+/* Loading spinner div */
+#loading {
+    z-index: 999;
+    position: absolute;
+    @media (min-width: 400px) {
+        top: 35%;
+        left: 50%;
+    }
+    @media (max-width: 400px) {
+        top: 35%;
+        left: 30%;
+    }
+}
+
+/* Animation for loading icon */
+@keyframes lds-rolling {
+    0% {
+        -webkit-transform: translate(-50%, -50%) rotate(0deg);
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translate(-50%, -50%) rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@-webkit-keyframes lds-rolling {
+    0% {
+        -webkit-transform: translate(-50%, -50%) rotate(0deg);
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translate(-50%, -50%) rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.lds-rolling {
+    position: relative;
+
+    div, div:after {
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        border: 20px solid $primary-color;
+        border-top-color: transparent;
+        border-radius: 50%;
+    }
+
+    div {
+        -webkit-animation: lds-rolling 1s linear infinite;
+        animation: lds-rolling 1s linear infinite;
+        top: 100px;
+        left: 100px;
+    }
+
+    div:after {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+
+    width: 200px !important;
+    height: 200px !important;
+    -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+    transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}
