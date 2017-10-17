@@ -261,6 +261,8 @@
     });
 
     /* Wire up options */
+
+    /* Download button */
     var download_png = document.getElementById( 'download-png' );
     download_png.addEventListener('click', function( e ) {
         var blob = cy.png({
@@ -273,6 +275,7 @@
         saveAs(blob, filename);
     });
 
+    /* Compass routing */
     var compass_routing = document.getElementById( 'chkcompassrouting' );
     compass_routing.addEventListener('click', function( e ) {
         cy.batch( function( ){
@@ -285,6 +288,51 @@
                 found.addClass('hidden');
             }
         });
+    });
+
+    /* Hide nodes */
+    var last_selected_index = 0;
+
+    var inform_object_floor = document.getElementById( 'inform_object_floor' );
+    inform_object_floor.addEventListener('click', function( e ) {
+        e.stopPropagation();
+
+        last_selected_index = parseInt( inform_object_floor.value );
+    });
+
+    inform_object_floor.addEventListener('change', function( e ) {
+        cy.batch( function() {
+            if( last_selected_index > parseInt( inform_object_floor.value ) ) {
+                var found = cy.nodes('node[id<' + parseInt( last_selected_index ) + ']');
+                found.removeClass('hidden');
+            }
+
+            var found = cy.nodes('node[id<' + parseInt( inform_object_floor.value ) + ']');
+            found.addClass('hidden');
+        });
+    });
+
+    /* Reset graph */
+    var reset_graph = document.getElementById('reset-graph');
+    reset_graph.addEventListener('click', function( e ) {
+        cy.batch( function() {
+            cy.$().removeClass('hidden');
+            cy.$().removeClass('hidden-transparent');
+            cy.$().removeClass('selected');
+
+            cy.animate({
+                fit : {
+                    eles: cy.$(),
+                    padding: 20
+                }
+            }, {
+                duration: 500
+            });
+        });
+
+        inform_object_floor.value = "1";
+        compass_routing.checked = true;
+        document.getElementById('chkzoompan').checked = true;
     });
     
 }(document, window));

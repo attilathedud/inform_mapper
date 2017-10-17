@@ -107,7 +107,13 @@
 
                 <div class="accordion-header">Graph</div>
                 <div>Zoom/Pan Graph on Search<span class="u-pull-right"><input type="checkbox" id="chkzoompan" checked /></span></div>
-                <div>Hide Inform Objects<span class="u-pull-right"><input type="checkbox" id="chkinformobjects" /></span></div>
+                <div>Hide Inform Objects Up to<span class="u-pull-right">
+                    <select id="inform_object_floor">
+                        {% for i in range(1, 30) %}
+                            <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <div>Compass Routing<span class="u-pull-right"><input type="checkbox" id="chkcompassrouting" checked /></span></div>
                 <div id="reset-graph" class="button">Reset Graph</div>
                 <div id="download-png" class="button">Download PNG</div>
