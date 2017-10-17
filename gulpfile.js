@@ -30,20 +30,32 @@ gulp.task('styles', ['clean_styles'],  function() {
 	return mergedStream;
 });
 
-gulp.task('clean_js', function() {
+gulp.task('clean_front_js', function() {
 	return del('inform_mapper/static/scripts/frontpage.min.js');
 });
 
-gulp.task('scripts', ['clean_js'], function() {
+gulp.task('frontpage_scripts', ['clean_front_js'], function() {
 	return gulp.src(['inform_mapper/static/scripts/frontpage/modernizr-custom.js', 'inform_mapper/static/scripts/frontpage/frontpage.js'])
 		.pipe(concat('frontpage.min.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('inform_mapper/static/scripts/'))
 });
 
+gulp.task('clean_graph_js', function() {
+	return del('inform_mapper/static/scripts/graph.min.js');
+});
+
+gulp.task('graph_scripts', ['clean_graph_js'], function() {
+	return gulp.src(['inform_mapper/static/scripts/graph/cytoscape.min.js', 'inform_mapper/static/scripts/graph/FileSaver.min.js', 'inform_mapper/static/scripts/graph/findAndReplaceDOMText.js', 'inform_mapper/static/scripts/graph/graph.js'])
+		.pipe(concat('graph.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('inform_mapper/static/scripts/'))
+});
+
 gulp.task('watch', function () {
 	gulp.watch(['inform_mapper/static/css/*.css', 'inform_mapper/static/scss/*.scss', '!inform_mapper/static/css/style.min.css'], ['styles']);
-	gulp.watch(['inform_mapper/static/scripts/frontpage/*.js'], ['scripts']);
+	gulp.watch(['inform_mapper/static/scripts/frontpage/*.js'], ['frontpage_scripts']);
+	gulp.watch(['inform_mapper/static/scripts/graph/*.js'], ['graph_scripts']);
 });
 
 gulp.task('default', ['styles', 'scripts']);
