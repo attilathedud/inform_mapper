@@ -95,14 +95,15 @@
                     nodes: object_nodes,
                     edges: object_edges
                 },
-            
+
                 layout: {
-                    name: 'cose-bilkent',
-                    nodeRepulsion: 7000,
+                    name: 'cose',
+                    nodeDimensionsIncludeLabels: true,
                     idealEdgeLength: 200,
-                    tilingPaddingVertical: 20,
-                    tilingPaddingHorizontal: 20
-                },
+                    edgeElasticity: 4000,
+                    nodeRepulsion: 7000,
+                    componentSpacing: 100,
+                }
             });
             
             cy.ready( function( e ) {
