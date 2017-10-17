@@ -1,15 +1,13 @@
 /* Loading spinner div */
 #loading {
+    @media (max-width: 400px) {
+        left: 22%;
+    }
+
     z-index: 999;
     position: absolute;
-    @media (min-width: 400px) {
-        top: 35%;
-        left: 50%;
-    }
-    @media (max-width: 400px) {
-        top: 35%;
-        left: 30%;
-    }
+    top: 35%;
+    left: 50%;
 }
 
 /* Animation for loading icon */
@@ -63,4 +61,31 @@
     height: 200px !important;
     -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
     transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}
+
+/* Animations for slide */
+.slide-in {
+    -webkit-animation: slide-in-left 0.5s forwards;
+    animation: slide-in-left 0.5s forwards;
+}
+
+@-webkit-keyframes slide-in-left {
+    100% { left: 0; }
+}
+
+@keyframes slide-in-left {
+    100% { left: 0; }
+}
+
+.slide-out {
+    -webkit-animation: slide-out-right 0.5s forwards;
+    animation: slide-out-right 0.5s forwards;
+}
+
+@-webkit-keyframes slide-out-right {
+    100% { left: 450px; }
+}
+
+@keyframes slide-out-right {
+    100% { left: 450px; }
 }

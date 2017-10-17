@@ -20,6 +20,9 @@
     var unhighlight_icon = document.getElementsByClassName('unhighlight-icon')[ 0 ];
     var hide_icon = document.getElementsByClassName('hide-icon')[ 0 ];
     var zoom_pan = document.getElementById('zoom-pan');
+    var menu_slide_out = document.getElementById('menu');
+    var info_box = document.getElementById('info-box');
+    var graph_container = document.getElementById('cy');
     
     /* Initialize the graph */
     var graph = new Graph();
@@ -61,7 +64,7 @@
         if( search_box.value.replace(' ', '').length > 0 ) {
             graph.highlight_neighbors( 'node[name @*="' + search_box.value + '"]', zoom_pan );
 
-            finder = findAndReplaceDOMText(document.getElementById('info-box'), {
+            finder = findAndReplaceDOMText( info_box, {
                 find: new RegExp(search_box.value, "gi"),
                 wrap: 'span',
                 wrapClass: 'highlight'
@@ -175,5 +178,17 @@
         document.getElementById('node-info-container').style.display = 'none';
     });
 
+    /* Menu button */
+    menu_slide_out.addEventListener( 'click', function( e ) {
+        info_box.classList.toggle( "slide-in" );
+        graph_container.classList.toggle( "slide-out" );
+
+        if( menu_slide_out.innerHTML.trim()[0] == "M" ) {
+            menu_slide_out.innerHTML = "G<br>R<br>A<br>P<br>H";
+        }
+        else {
+            menu_slide_out.innerHTML = "M<br>E<br>N<br>U";
+        }
+    });
     
 }(document, window));

@@ -5,6 +5,11 @@ $info-box-width: 25%;
 
 /* Main page elements */
 #info-box {
+    @media (max-width: 400px) {
+        width: 100%;
+        left: -400px;
+    }
+
     height: 90%;
     width: $info-box-width;
     position: absolute;
@@ -15,8 +20,36 @@ $info-box-width: 25%;
     margin-top: 10px;
 }
 
+/* Graph container */
+#cy {
+    @media (max-width: 400px) {
+        width: 100%;
+        left: 0;
+    }
+
+    height: 100%;
+    width: 100% - $info-box-width;
+    position: absolute;
+    left: $info-box-width;
+    top: 0;
+}
+
+#menu {
+    @media (min-width: 400px) {
+        display: none;
+    }
+
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: fit-content;
+}
+
 /* Help text */
 .help-text {
+    @media (max-width: 400px) {
+        display: none;
+    }
     color: $background-contrast;
     position: absolute;
     top: 0;
@@ -26,6 +59,10 @@ $info-box-width: 25%;
 
 /* Search box */
 .search-box-container {
+    @media (max-width: 400px) {
+        width: 100%;
+    }
+
     position: absolute;
     top: 0;
     border-right: 1px solid $background-contrast;
@@ -39,16 +76,24 @@ $info-box-width: 25%;
     }
 
     & .search-icon {
+        @media (max-width: 400px) {
+            left: 10%;
+        }
+
         position: absolute;
         top: 5px;
-        left: 10px;
+        left: 5%;
         font-size: 20pt;
     }
 
     & .clear-icon {
+        @media (max-width: 400px) {
+            right: 10%;
+        }
+
         position: absolute;
         top: 10px;
-        right: 10px;
+        right: 5%;
         font-size: 16pt;
         cursor: pointer;
         display: none;
@@ -72,15 +117,6 @@ div.button {
     &:hover {
         background-color: $focus-color;
     }
-}
-
-/* Graph container */
-#cy {
-    height: 100%;
-    width: 100% - $info-box-width;
-    position: absolute;
-    left: $info-box-width;
-    top: 0;
 }
 
 /* Accordion */
