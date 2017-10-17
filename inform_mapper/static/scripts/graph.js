@@ -266,8 +266,11 @@
         var blob = cy.png({
             output: 'blob'
         });
+
+        var filename = document.getElementById( 'filename' ).innerHTML;
+        filename = filename.substr( 0, filename.lastIndexOf( '.' ) ) + ".png";
         
-        saveAs(blob, "graph.png");
+        saveAs(blob, filename);
     });
 
     
