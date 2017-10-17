@@ -6,10 +6,7 @@ var Graph = (function( ) {
     var _object_nodes;
     var _object_edges;
 
-    var _id_nodes;
-    var _description_nodes;
-    var _parent_nodes;
-    var _child_nodes; 
+    var _object_info_nodes;
     var _property_number_nodes;
     var _property_value_nodes;
 
@@ -49,37 +46,35 @@ var Graph = (function( ) {
     }
     
     /* Given an array of object information, fill our nodes and edges */
-    Graph.prototype.fill_nodes_and_edges = function( id_nodes, description_nodes, parent_nodes, 
-        child_nodes, property_number_nodes, property_value_nodes  ) {
+    Graph.prototype.fill_nodes_and_edges = function( object_info_nodes, property_number_nodes, 
+        property_value_nodes  ) {
 
-        _id_nodes = id_nodes;
-        _description_nodes = description_nodes;
-        _parent_nodes = parent_nodes;
-        _child_nodes = child_nodes;
+        _object_info_nodes = object_info_nodes;
+
         _property_number_nodes = property_number_nodes;
         _property_value_nodes = property_value_nodes;
 
         var compass_node = -1;
         var compass_directions = {}
 
-        for( var i = 0; i < _description_nodes.length; i++ ) {
-            add_node( _id_nodes[ i ].innerHTML, _description_nodes[ i ].innerHTML );
+        for( var i = 0; i < _object_info_nodes.length; i++ ) {
+            add_node( _object_info_nodes[ i ].dataset.objectId, _object_info_nodes[ i ].dataset.objectDescription );
     
-            if( _parent_nodes[ i ].innerHTML != "0" ) {
-                add_edge( _id_nodes[ i ].innerHTML, _parent_nodes[ i ].innerHTML );
+            if( _object_info_nodes[ i ].dataset.objectParent != "0" ) {
+                add_edge( _object_info_nodes[ i ].dataset.objectId, _object_info_nodes[ i ].dataset.objectParent );
             }
     
-            if( _child_nodes[ i ].innerHTML != "0" ) {
-                add_edge( _child_nodes[ i ].innerHTML, _id_nodes[ i ].innerHTML );
+            if( _object_info_nodes[ i ].dataset.objectChild != "0" ) {
+                add_edge( _object_info_nodes[ i ].dataset.objectChild, _object_info_nodes[ i ].dataset.objectId );
             }
 
-            if( description_nodes[ i ].innerHTML == "compass" ) {
-                compass_node = id_nodes[ i ].innerHTML;
+            if( _object_info_nodes[ i ].dataset.objectDescription == "compass" ) {
+                compass_node = _object_info_nodes[ i ].dataset.objectId;
             }
     
-            if( parent_nodes[ i ].innerHTML == compass_node ) {
-                compass_directions[ id_nodes[ i ].innerHTML ] = 
-                    description_nodes[ i ].innerHTML.replace(" wall", "");
+            if( _object_info_nodes[ i ].dataset.objectParent == compass_node ) {
+                compass_directions[ _object_info_nodes[ i ].dataset.objectId ] = 
+                    _object_info_nodes[ i ].dataset.objectDescription.replace(" wall", "");
             }
         }
     
@@ -90,7 +85,7 @@ var Graph = (function( ) {
                     var object_id = _property_number_nodes[ i ].dataset.parentId;
                     var destination = parseInt( _property_value_nodes[ i ].innerHTML, 16 );
                     
-                    if( destination > 0 && destination < id_nodes.length) {
+                    if( destination > 0 && destination < _object_info_nodes.length) {
                         var edge_value = { data: { source: object_id, target: destination, 
                             label: compass_directions[ direction_id ] }, 
                             classes: 'autorotate edge-direction' };
@@ -172,9 +167,9 @@ var Graph = (function( ) {
                         }
                     }
 
-                    node_info_box.innerHTML = "<span id='node-selected'>" + _id_nodes[ id ].innerHTML + 
-                        "</span>.\"" + _description_nodes[ id ].innerHTML + "\"" + "<br/>" + "Parent: " + 
-                        _parent_nodes[ id ].innerHTML + "<br/>Child: " + _child_nodes[ id ].innerHTML +
+                    node_info_box.innerHTML = "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
+                        "</span>.\"" + _object_info_nodes[ id ].dataset.objectDescription + "\"" + "<br/>" + "Parent: " + 
+                        _object_info_nodes[ id ].dataset.objectParent + "<br/>Child: " + _object_info_nodes[ id ].dataset.objectChild +
                         "<br/><div class='accordion-header'>Properties</div>" + properties;
                 }
             }
@@ -260,7 +255,7 @@ var Graph = (function( ) {
                 found.removeClass('hidden');
             }
 
-            hide_objects( 'node[id<' + parseInt( floor ) + ']' );
+            Graph.prototype.hide_objects( 'node[id<' + parseInt( floor ) + ']' );
         });
 
         _last_selected_object_floor = parseInt( floor );

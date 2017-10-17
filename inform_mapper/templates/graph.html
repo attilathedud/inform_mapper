@@ -85,9 +85,12 @@
                 <div class="accordion-header">Objects</div>
                 <div class="object-panel">
                     {% for object in objects %}
-                        <div>
-                            <div><span class="object-id">{{object.id}}</span>. "<span class="object-description">{{object.description}}</span>"</div>
-                            <div>Parent: <span class="object-parent">{{object.parent}}</span>&emsp;Sibling: <span class="object-sibling">{{object.sibling}}</span>&emsp;Child: <span class="object-child">{{object.child}}</span></div>
+                        <div class="object-info" data-object-id="{{object.id}}" 
+                            data-object-description="{{object.description}}" 
+                            data-object-parent="{{object.parent}}" data-object-child="{{object.child}}">
+                            
+                            <div><span>{{object.id}}</span>. "<span>{{object.description}}</span>"</div>
+                            <div>Parent: <span>{{object.parent}}</span>&emsp;Sibling: <span>{{object.sibling}}</span>&emsp;Child: <span>{{object.child}}</span></div>
                             {% if object.attributes|length > 0 %}
                                 <div>Attributes<span class="u-pull-right">{{object.attributes}}</span></div>
                             {% endif %}

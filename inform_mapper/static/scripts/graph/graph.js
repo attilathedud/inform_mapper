@@ -3,10 +3,7 @@
 (function( document, window, undefined ) {
 
     /* Selectors */
-    var id_nodes = document.getElementsByClassName("object-id");
-    var description_nodes = document.getElementsByClassName("object-description");
-    var parent_nodes = document.getElementsByClassName("object-parent");
-    var child_nodes = document.getElementsByClassName("object-child");
+    var object_info_nodes = document.getElementsByClassName("object-info");
     var property_number_nodes = document.getElementsByClassName("object-property-number");
     var property_value_nodes = document.getElementsByClassName("object-property-value");
     var loading_div = document.getElementById('loading');
@@ -27,8 +24,7 @@
     /* Initialize the graph */
     var graph = new Graph();
     
-    graph.fill_nodes_and_edges( id_nodes, description_nodes, parent_nodes, child_nodes, 
-        property_number_nodes, property_value_nodes );
+    graph.fill_nodes_and_edges( object_info_nodes, property_number_nodes, property_value_nodes );
 
     graph.create_cy_graph( loading_div, node_info_container, node_info_box );
 
