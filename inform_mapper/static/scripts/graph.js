@@ -261,6 +261,14 @@
     });
 
     /* Wire up options */
+    var download_png = document.getElementById( 'download-png' );
+    download_png.addEventListener('click', function( e ) {
+        var blob = cy.png({
+            output: 'blob'
+        });
+        
+        saveAs(blob, "graph.png");
+    });
 
     
 }(document, window));
