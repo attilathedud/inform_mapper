@@ -114,10 +114,13 @@
             <div class="accordion">Settings</div>
             <div class="panel">
                 <div class="accordion-header">Info Box</div>
-                <div>Scroll to Text on Search<span class="u-pull-right"><input type="checkbox" id="scroll-to-text" checked="true" /></span></div>
-
+                <label for="scroll-to-text">
+                    <div>Scroll to Text on Search<span class="u-pull-right"><input type="checkbox" id="scroll-to-text" name="scroll-to-text" checked="true" /></span></div>
+                </label>
                 <div class="accordion-header">Graph</div>
-                <div>Zoom/Pan Graph on Search<span class="u-pull-right"><input type="checkbox" id="zoom-pan" checked /></span></div>
+                <label for="zoom-pan">
+                    <div>Zoom/Pan Graph on Search<span class="u-pull-right"><input type="checkbox" id="zoom-pan" name="zoom-pan" checked /></span></div>
+                </label>
                 <div>Hide Inform Objects Up to<span class="u-pull-right">
                     <select id="inform-object-floor">
                         {% for i in range( 1, objects|length + 1 ) %}
@@ -125,10 +128,11 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div>Compass Routing<span class="u-pull-right"><input type="checkbox" id="compass-routing" checked /></span></div>
+                <label for="compass-routing">
+                    <div>Compass Routing<span class="u-pull-right"><input type="checkbox" id="compass-routing" name="compass-routing" checked /></span></div>
+                </label>
                 <div id="reset-graph" class="button">Reset Graph</div>
                 <div id="download-png" class="button">Download PNG</div>
-
                 &nbsp;
             </div>
         </div>
