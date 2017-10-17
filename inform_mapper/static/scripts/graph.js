@@ -273,5 +273,18 @@
         saveAs(blob, filename);
     });
 
+    var compass_routing = document.getElementById( 'chkcompassrouting' );
+    compass_routing.addEventListener('click', function( e ) {
+        cy.batch( function( ){
+            var found = cy.edges('edge[?label]');
+
+            if( compass_routing.checked ) {
+                found.removeClass('hidden');
+            }
+            else {
+                found.addClass('hidden');
+            }
+        });
+    });
     
 }(document, window));
