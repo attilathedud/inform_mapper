@@ -46,7 +46,7 @@ gulp.task('clean_graph_js', function() {
 });
 
 gulp.task('graph_scripts', ['clean_graph_js'], function() {
-	return gulp.src(['inform_mapper/static/scripts/graph/cytoscape.min.js', 'inform_mapper/static/scripts/graph/FileSaver.min.js', 'inform_mapper/static/scripts/graph/findAndReplaceDOMText.js', 'inform_mapper/static/scripts/graph/graph.js'])
+	return gulp.src(['inform_mapper/static/scripts/graph/cytoscape.min.js', 'inform_mapper/static/scripts/graph/FileSaver.min.js', 'inform_mapper/static/scripts/graph/findAndReplaceDOMText.js', 'inform_mapper/static/scripts/graph/graph_logic.js', 'inform_mapper/static/scripts/graph/graph.js'])
 		.pipe(concat('graph.min.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('inform_mapper/static/scripts/'))

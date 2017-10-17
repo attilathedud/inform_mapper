@@ -95,7 +95,7 @@
                                 <div class="accordion-header">Properties<span class="u-pull-right">0x{{object.properties}}</span></div>
                                 <div class="property-block">
                                     {% for property in object.property_list %}
-                                        <div><span class="object-property-number">{{ property[ 0 ] }}</span> <span class="u-pull-right object-property-value">0x{{ property[ 1 ] }}</span></div>
+                                        <div><span data-parent-id="{{object.id}}" class="object-property-number">{{ property[ 0 ] }}</span> <span class="u-pull-right object-property-value">0x{{ property[ 1 ] }}</span></div>
                                     {% endfor %}
                                 </div>
                             {% endif %}
@@ -117,7 +117,7 @@
                 <div>Zoom/Pan Graph on Search<span class="u-pull-right"><input type="checkbox" id="zoom-pan" checked /></span></div>
                 <div>Hide Inform Objects Up to<span class="u-pull-right">
                     <select id="inform-object-floor">
-                        {% for i in range(1, 30) %}
+                        {% for i in range( 1, objects|length + 1 ) %}
                             <option value="{{i}}">{{i}}</option>
                         {% endfor %}
                     </select>
