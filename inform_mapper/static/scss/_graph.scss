@@ -198,6 +198,30 @@ input[type="checkbox"] {
     margin-left: 10px;
 }
 
+/* Node info box */
+#node-info-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+    border: 1px solid $background-text-color;
+    padding: 10px;
+    display: none;
+}
+
+#node-info-box {
+    overflow: scroll;
+    border-top: 1px solid $background-text-color;
+    padding: 10px;
+    max-height: 100px;
+    min-width: 200px;
+}
+
+.highlight-icon, .hide-icon {
+    cursor: pointer;
+    padding: 0 5px;
+}
+
 /* Animation for loading icon */
 @keyframes lds-rolling {
     0% {

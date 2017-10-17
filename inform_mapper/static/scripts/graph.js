@@ -113,14 +113,41 @@
             cy.on( 'select', function( event ) {
                 if( event.target === cy ) {
                     cy.$().removeClass('selected');
+                    document.getElementById('node-info-container').style.display = 'none';
                 }
                 else {
+                    document.getElementById('node-info-container').style.display = 'block';
                     event.target.addClass('selected');
+                    
+                    var node_info_box = document.getElementById('node-info-box');
+                    var id = event.target.id() - 1;
+
+                    if( id ) {
+                        var properties = '';
+                        
+                        for( var i = 0; i < property_number_nodes.length; i++ ) 
+                        {
+                            var object_id = property_number_nodes[ i ].parentNode.parentNode.parentNode.getElementsByClassName('object_id')[ 0 ].innerHTML;
+    
+                            if( object_id > id ) {
+                                break;
+                            }
+    
+                            if( object_id == id ) {
+                                properties += property_number_nodes[ i ].innerHTML + "<span class='u-pull-right'>" + property_value_nodes[ i ].innerHTML + "</span><br/>";
+                            }
+                        }
+    
+                        node_info_box.innerHTML = "<span id='node_selected'>" + id_nodes[ id ].innerHTML + "</span>.\"" + description_nodes[ id ].innerHTML + "\"" + "<br/>" +
+                                                    "Parent: " + parent_nodes[ id ].innerHTML + "<br/>Child: " + child_nodes[ id ].innerHTML +
+                                                    "<br/><div class='accordion-header'>Properties</div>" + properties;
+                    }
                 }
             });
 
             cy.on( 'tap', function( event ) {
                 cy.$().removeClass('selected');
+                document.getElementById('node-info-container').style.display = 'none';
             });
         }); 
 
@@ -227,7 +254,8 @@
                             cur_selection_parent = cur_selection_parent.parentNode;
                     }
     
-                    if( !cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].classList.contains( 'active' ) ) {
+                    if( cur_selection_parent && cur_selection_parent.parentNode &&
+                        (!cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].classList.contains( 'active' ) ) ) {
                         cur_selection_parent.parentNode.getElementsByClassName('accordion')[0].click();
                     }   
                 }
@@ -334,5 +362,52 @@
         compass_routing.checked = true;
         document.getElementById('chkzoompan').checked = true;
     });
+
+    /* Wire up info box */
+    var highlight_icon = document.getElementsByClassName('highlight-icon')[ 0 ];
+    highlight_icon.addEventListener( 'click', function( e ) {
+        cy.batch( function() {
+            if( previous_hidden_elements ) {
+                previous_hidden_elements.removeClass('hidden-transparent');
+
+                if( document.getElementById('chkzoompan').checked ) {
+                    cy.animate({
+                        fit : {
+                            eles: cy.$(),
+                            padding: 20
+                        }
+                    }, {
+                        duration: 500
+                    });
+                }
+            }
+        });
+
+        cy.batch( function( ){
+            var found = cy.$( 'node[id ="' + (document.getElementById('node_selected').innerHTML ) + '"]' ).closedNeighborhood();
+            previous_hidden_elements = cy.elements().not( found );
+
+            previous_hidden_elements.addClass('hidden-transparent');
+        
+            if( document.getElementById('chkzoompan').checked ) {
+                cy.animate({
+                    fit: {
+                        eles: found,
+                        padding: 20
+                    }
+                }, {
+                    duration: 500
+                });
+            }
+        });
+    });
+
+    var hide_icon = document.getElementsByClassName('hide-icon')[ 0 ];
+    hide_icon.addEventListener( 'click', function( e ) {
+        var found = cy.$( 'node[id ="' + (document.getElementById('node_selected').innerHTML ) + '"]' );
+        found.addClass('hidden');
+        document.getElementById('node-info-container').style.display = 'none';
+    });
+
     
 }(document, window));
