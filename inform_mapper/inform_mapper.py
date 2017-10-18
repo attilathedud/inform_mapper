@@ -1,5 +1,7 @@
-from flask import Flask, request, redirect, render_template, jsonify
+from flask import Flask, request, redirect, render_template, jsonify, send_from_directory
 from .inform_tools import get_header_info, get_dictionary_info, get_object_info
+
+import os
 
 app = Flask(__name__)
 
@@ -8,6 +10,18 @@ ALLOWED_EXTENSIONS = set(['z5'])
 @app.route('/')
 def main_page():
     return render_template('frontpage.html')
+
+@app.route('/adventureland')
+def example():
+    adventureland_file = open( os.path.join( app.root_path, 'static/test_games/Adventureland.z5' ), 'rb' )
+
+    header = get_header_info(adventureland_file)
+    dictionary = get_dictionary_info(adventureland_file, header.dictionary_address)
+    objects = get_object_info(adventureland_file, header.object_table)
+
+    adventureland_file.close()
+
+    return render_template('graph.html', name='Adventureland.z5', header=header, dictionary=dictionary, objects=objects)
 
 def allowed_file(filename):
     return '.' in filename and \
