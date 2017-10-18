@@ -19,8 +19,6 @@ SHIFT_DICT = {0:" ", 1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"0", 9:"1", 10:
                 20:"!", 21:"?", 22:"_", 23:"#", 24:"'", 25:"\"", 26:"/", 27:"\\",
                 28:"-", 29:":", 30:"(", 31:")"}
 
-ASCII_DICT = {46: ".", 44: ",", 34: "\"", 42: "*"}
-
 def decode_z_bytes_into_z_chars(z_bytes):
     z_chars = []
     binary_representation = bin(int(z_bytes, 16))[2:].zfill(16)
@@ -57,7 +55,7 @@ def decode_z_word(z_bytes):
                 word += ALPHABET_DICT[temp_code].upper()
             elif shift_code == 5:
                 if temp_code == 6:
-                    word += ASCII_DICT[int(word_binary_stream[i+1] + word_binary_stream[i+2], 2)]
+                    word += chr(int(word_binary_stream[i+1] + word_binary_stream[i+2], 2))
                     i += 2
                 else:
                     word += SHIFT_DICT[temp_code]
@@ -74,7 +72,7 @@ def decode_ascii_bytes(ascii_bytes, amount):
     letters = ""
 
     for i in range(0, amount * 2, 2):
-        letters += ASCII_DICT[int(ascii_bytes[i:i+2], 16)]
+        letters += chr(int(ascii_bytes[i:i+2], 16))
 
     return letters
 
