@@ -12,7 +12,12 @@ class Inform_Object:
 def get_header_info(uploaded_file):
     header = Inform_Header()
 
-    header.version = ord(uploaded_file.read(1))
+    uploaded_file.seek(0)
+
+    header.version = int(uploaded_file.read(1).hex(), 16)
+    if header.version < 1 or header.version > 8:
+        raise ValueError( 'Invalid header number' )
+
     uploaded_file.seek(4)
     header.base_of_high_memory = uploaded_file.read(2).hex()
     header.initial_program_counter = uploaded_file.read(2).hex()
@@ -25,15 +30,27 @@ def get_header_info(uploaded_file):
     header.file_length = "%04x" % int(int(uploaded_file.read(2).hex(), 16) / 4)
     header.checksum = uploaded_file.read(2).hex()
 
+    uploaded_file.seek(64)
+    calculated_checksum = 0
+    bytes_read = uploaded_file.read(1).hex()
+    while bytes_read != "":
+        calculated_checksum += int(bytes_read, 16)
+        bytes_read = uploaded_file.read(1).hex()
+
+    calculated_checksum = hex(calculated_checksum & 0xffff)
+
+    if calculated_checksum != hex(int(header.checksum, 16)):
+        raise ValueError( 'Invalid checksum' )
+
     return header
 
 def get_dictionary_info(uploaded_file, dictionary_address):
     dictionary = Inform_Dictionary()
 
     uploaded_file.seek(int(dictionary_address, 16))
-    dictionary.separator_length = ord(uploaded_file.read(1))
+    dictionary.separator_length = int(uploaded_file.read(1).hex(), 16)
     dictionary.separator = decode_ascii_bytes(uploaded_file.read(dictionary.separator_length).hex(), dictionary.separator_length)
-    dictionary.entry_length = ord(uploaded_file.read(1))
+    dictionary.entry_length = int(uploaded_file.read(1).hex(), 16)
     dictionary.entries = int(uploaded_file.read(2).hex(), 16)
 
     dictionary.words = []
@@ -81,7 +98,7 @@ def get_object_info(uploaded_file, object_table_address):
 
         # Get our properties
         uploaded_file.seek(int(cur_object.properties, 16))
-        cur_object.description_length = ord(uploaded_file.read(1))
+        cur_object.description_length = int(uploaded_file.read(1).hex(), 16)
         cur_object.description_bytes = uploaded_file.read(cur_object.description_length * 2).hex()
         cur_object.description = decode_z_word(cur_object.description_bytes)
 
