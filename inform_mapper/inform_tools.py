@@ -6,6 +6,9 @@ HEADER_SIZE = 64
 class Inform_Header:
     pass
 
+class Inform_Abbrevations:
+    pass
+
 class Inform_Dictionary:
     pass
 
@@ -41,6 +44,9 @@ def get_header_info(uploaded_file):
     header.base_of_static_memory = uploaded_file.read(2).hex()
     uploaded_file.seek(24)
     header.abbrevations_table = uploaded_file.read(2).hex()
+    if int(header.abbrevations_table, 16) > actual_file_size:
+        raise ValueError('Invalid abbrevations table address')
+
     header.file_length = "%04x" % int(int(uploaded_file.read(2).hex(), 16) / 4)
     header.checksum = uploaded_file.read(2).hex()
 
@@ -57,6 +63,22 @@ def get_header_info(uploaded_file):
         raise ValueError('Invalid checksum')
 
     return header
+
+def get_abbrevation_info(uploaded_file, version, abbrevations_table_address ):
+    abbrevations = Inform_Abbrevations()
+
+    if version == 1:
+        abbrevations.count = 32
+    else:
+        abbrevations.count = 96
+
+    abbrevations.items = []
+    uploaded_file.seek(int(abbrevations_table_address, 16))
+
+    for i in range(0, abbrevations.count):
+        abbrevations.items.append((i+1, decode_z_word(uploaded_file.read(2).hex())))
+
+    return abbrevations
 
 def get_dictionary_info(uploaded_file, dictionary_address):
     dictionary = Inform_Dictionary()
