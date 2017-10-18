@@ -61,7 +61,8 @@
 
         graph.clear_highlights( zoom_pan );
 
-        if( search_box.value.replace(' ', '').length > 0 ) {
+        var search_term = search_box.value.replace(new RegExp(' ', 'g'), '');
+        if( search_term.length > 0 ) {
             graph.highlight_neighbors( 'node[name @*="' + search_box.value + '"]', zoom_pan );
 
             finder = findAndReplaceDOMText( info_box, {
