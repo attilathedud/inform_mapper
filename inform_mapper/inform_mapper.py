@@ -22,9 +22,9 @@ def parse_file(file_object):
         dictionary = get_dictionary_info(file_object, header.dictionary_address)
         objects = get_object_info(file_object, header.object_table)
     except ValueError:
-        message = 'Invalid file uploaded.'
-    finally:
-        return (message, header, dictionary, objects)
+        message = 'There was an issue parsing the file.'
+
+    return (message, header, dictionary, objects)
 
 @app.route('/')
 def main_page():
