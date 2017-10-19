@@ -74,6 +74,7 @@
     box-sizing: border-box;
     font-weight: 600;
     display: none;
+    border-radius: 0 !important;
 
     &:hover {
         background-color: $focus-color;

@@ -4,6 +4,10 @@
         left: 22%;
     }
 
+    @media (max-width: 750px) {
+        left: 35%;
+    }
+
     z-index: 999;
     position: absolute;
     top: 35%;
@@ -83,9 +87,9 @@
 }
 
 @-webkit-keyframes slide-out-right {
-    100% { left: 450px; }
+    100% { left: 800px; }
 }
 
 @keyframes slide-out-right {
-    100% { left: 450px; }
+    100% { left: 800px; }
 }
