@@ -44,13 +44,6 @@
             } 
         });
     } 
-    
-    /* Wire up search box */
-    search_box.focus();
-
-    document.addEventListener( 'click', function( e ) {
-		search_box.focus();
-    })
 
     var finder;
     
