@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve informmapper
+After=network.target
+
+[Service]
+User=
+Group=www-data
+WorkingDirectory=/var/www/informmapper
+Environment="PATH=/var/www/informmapper/venv/bin"
+ExecStart=/var/www/informmapper/venv/bin/uwsgi --ini informmapper.ini
+
+[Install]
+WantedBy=multi-user.target
