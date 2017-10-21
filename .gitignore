@@ -8,3 +8,6 @@ venv/
 
 # Node stuff for gulp
 node_modules/
+
+# Release folder
+dist/
