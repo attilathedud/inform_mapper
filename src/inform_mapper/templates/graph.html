@@ -115,8 +115,8 @@
                             data-object-description="{{object.description}}" 
                             data-object-parent="{{object.parent}}" data-object-child="{{object.child}}">
                             
-                            <div><span>{{object.id}}</span>. "<span>{{object.description}}</span>"</div>
-                            <div>Parent: <span>{{object.parent}}</span>&emsp;Sibling: <span>{{object.sibling}}</span>&emsp;Child: <span>{{object.child}}</span></div>
+                            <div>{{object.id}}. "{{object.description}}"</div>
+                            <div>Parent: {{object.parent}}&emsp;Sibling: {{object.sibling}}&emsp;Child: {{object.child}}</div>
                             {% if object.attributes|length > 0 %}
                                 <div>Attributes<span class="u-pull-right">{{object.attributes}}</span></div>
                             {% endif %}
