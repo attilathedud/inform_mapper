@@ -67,8 +67,7 @@ gulp.task('dist', ['default', 'clean_dist'], function () {
 	var dist_files = ['inform_mapper/static/css/style.min.css', 'inform_mapper/static/imgs/*.*', 
 		'inform_mapper/static/scripts/*.min.js', 'inform_mapper/static/style/graph.json', 
 		'inform_mapper/static/test_games/*.*', 'inform_mapper/templates/**/*.*', 
-		'inform_mapper/inform_mapper.py', 'inform_mapper/inform_text.py', 'inform_mapper/inform_tools.py',
-		'inform_mapper/__init__.py' ];
+		'inform_mapper/*.py' ];
 
 	gulp.src(dist_files, { base: 'inform_mapper/' })
 		.pipe(gulp.dest('dist'));
