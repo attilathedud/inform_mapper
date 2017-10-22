@@ -76,14 +76,12 @@ $info-box-width: 25%;
     }
 
     & .search-icon {
-        @media (max-width: 750px) {
-            left: 10%;
-        }
-
         position: absolute;
-        top: 5px;
+        top: 20px;
         left: 5%;
-        font-size: 20pt;
+        width: 16px;
+        height: 16px;
+        background: url('../imgs/search.png');
     }
 
     & .clear-icon {
