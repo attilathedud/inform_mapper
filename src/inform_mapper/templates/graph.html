@@ -30,19 +30,19 @@
             <div class="accordion">Header</div>
             <div class="panel">
                 <div class="accordion-header">File Information</div>
-                <div>Name<span id="filename" class="u-pull-right">{{name}}</span></div>
-                <div>Version<span class="u-pull-right">{{info.header.version}}</span></div>
-                <div>File Length<span class="u-pull-right">0x{{info.header.file_length}}</span></div>
-                <div>Checksum<span class="u-pull-right">0x{{info.header.checksum}}</span></div>
+                Name<span id="filename" class="u-pull-right">{{name}}</span><br>
+                Version<span class="u-pull-right">{{info.header.version}}</span><br>
+                File Length<span class="u-pull-right">0x{{info.header.file_length}}</span><br>
+                Checksum<span class="u-pull-right">0x{{info.header.checksum}}</span>
 
                 <div class="accordion-header">Addresses</div>
-                <div>Base of High Memory<span class="u-pull-right">0x{{info.header.base_of_high_memory}}</span></div>
-                <div>Base of Static Memory<span class="u-pull-right">0x{{info.header.base_of_static_memory}}</span></div>
-                <div>Initial Program Counter<span class="u-pull-right">0x{{info.header.initial_program_counter}}</span></div>
-                <div>Dictionary Address<span class="u-pull-right">0x{{info.header.dictionary_address}}</span></div>
-                <div>Object Table<span class="u-pull-right">0x{{info.header.object_table}}</span></div>
-                <div>Global Variables Table<span class="u-pull-right">0x{{info.header.global_variables_table}}</span></div>
-                <div>Abbrevations Table<span class="u-pull-right">0x{{info.header.abbrevations_table}}</span></div>
+                Base of High Memory<span class="u-pull-right">0x{{info.header.base_of_high_memory}}</span><br>
+                Base of Static Memory<span class="u-pull-right">0x{{info.header.base_of_static_memory}}</span><br>
+                Initial Program Counter<span class="u-pull-right">0x{{info.header.initial_program_counter}}</span><br>
+                Dictionary Address<span class="u-pull-right">0x{{info.header.dictionary_address}}</span><br>
+                Object Table<span class="u-pull-right">0x{{info.header.object_table}}</span><br>
+                Global Variables Table<span class="u-pull-right">0x{{info.header.global_variables_table}}</span><br>
+                Abbrevations Table<span class="u-pull-right">0x{{info.header.abbrevations_table}}</span><br>
                 &nbsp;
             </div>
         </div>
@@ -51,20 +51,20 @@
             <div class="accordion">Abbrevations</div>
             <div class="panel">
                 <div class="accordion-header">Abbrevation Information</div>
-                <div>Count<span class="u-pull-right">{{info.abbrevations.count}}</span></div>
+                Count<span class="u-pull-right">{{info.abbrevations.count}}</span>
                 <div class="accordion-header">Abbrevations</div>
                 <div class="word-panel">
                     <div class="u-pull-left">
                         {% for i in range(0, info.abbrevations.count, 2 )%}
                             <div class="row">
-                                <span>[{{info.abbrevations.items[i][0]}}]&emsp;"{{info.abbrevations.items[i][1]}}"</span>
+                                [{{info.abbrevations.items[i][0]}}]&emsp;"{{info.abbrevations.items[i][1]}}"
                             </div>
                         {% endfor %}
                     </div>
                     <div class="u-pull-right">
                         {% for i in range(1, info.abbrevations.count, 2 )%}
                             <div class="row">
-                                <span>[{{info.abbrevations.items[i][0]}}]&emsp;"{{info.abbrevations.items[i][1]}}"</span>
+                                [{{info.abbrevations.items[i][0]}}]&emsp;"{{info.abbrevations.items[i][1]}}"
                             </div>
                         {% endfor %}
                     </div>
@@ -87,14 +87,14 @@
                     <div class="u-pull-left">
                         {% for i in range(0, info.dictionary.entries, 2 )%}
                             <div class="row">
-                                <span>[{{info.dictionary.words[i][0]}}]&emsp;{{info.dictionary.words[i][1]}}</span>
+                                [{{info.dictionary.words[i][0]}}]&emsp;{{info.dictionary.words[i][1]}}
                             </div>
                         {% endfor %}
                     </div>
                     <div class="u-pull-right">
                         {% for i in range(1, info.dictionary.entries, 2 )%}
                             <div class="row">
-                                <span>[{{info.dictionary.words[i][0]}}]&emsp;{{info.dictionary.words[i][1]}}</span>
+                                [{{info.dictionary.words[i][0]}}]&emsp;{{info.dictionary.words[i][1]}}
                             </div>
                         {% endfor %}
                     </div>
@@ -107,7 +107,7 @@
             <div class="accordion">Objects</div>
             <div class="panel">
                 <div class="accordion-header">Object Information</div>
-                <div>Object Count<span class="u-pull-right">{{info.objects|length}}</span></div>
+                Object Count<span class="u-pull-right">{{info.objects|length}}</span>
                 <div class="accordion-header">Objects</div>
                 <div class="object-panel">
                     {% for object in info.objects %}
@@ -115,21 +115,21 @@
                             data-object-description="{{object.description}}" 
                             data-object-parent="{{object.parent}}" data-object-child="{{object.child}}">
                             
-                            <div>{{object.id}}. "{{object.description}}"</div>
-                            <div>Parent: {{object.parent}}&emsp;Sibling: {{object.sibling}}&emsp;Child: {{object.child}}</div>
+                            {{object.id}}. "{{object.description}}"<br>
+                            Parent: {{object.parent}}&emsp;Sibling: {{object.sibling}}&emsp;Child: {{object.child}}<br>
                             {% if object.attributes|length > 0 %}
-                                <div>Attributes<span class="u-pull-right">{{object.attributes}}</span></div>
+                                Attributes<span class="u-pull-right">{{object.attributes}}</span>
                             {% endif %}
                             {% if object.property_list|length > 0 %}
                                 <div class="accordion-header">Properties<span class="u-pull-right">0x{{object.properties}}</span></div>
                                 <div class="property-block">
                                     {% for property in object.property_list %}
-                                        <div><span data-parent-id="{{object.id}}" class="object-property-number">{{ property[ 0 ] }}</span> <span class="u-pull-right object-property-value">0x{{ property[ 1 ] }}</span></div>
+                                        <span data-parent-id="{{object.id}}" class="object-property-number">{{ property[ 0 ] }}</span> <span class="u-pull-right object-property-value">0x{{ property[ 1 ] }}</span><br>
                                     {% endfor %}
                                 </div>
                             {% endif %}
                         </div>
-                        <div>&nbsp;</div>
+                        &nbsp;
                     {% endfor %}
                 </div>
                 &nbsp;
