@@ -7,7 +7,8 @@
             "color" : "white",
             "text-outline-width" : 2,
             "background-color" : "#000",
-            "text-outline-color" : "#000"
+            "text-outline-color" : "#000",
+            "padding" : 10
         }
     },
 
@@ -69,7 +70,7 @@
         "selector" : ".selected",
         "style" : {
             "background-color" : "#e7ed59",
-            "padding" : 10
+            "padding" : 20
         }
     }
 ]
