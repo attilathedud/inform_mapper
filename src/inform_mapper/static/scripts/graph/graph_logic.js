@@ -11,6 +11,8 @@ var Graph = (function( ) {
     var _property_value_nodes;
 
     var _cy;
+    var _node_info_container;
+    var _node_info_box;
 
     var _last_search_hidden_members;
     var _last_selected_object_floor;
@@ -99,6 +101,9 @@ var Graph = (function( ) {
 
     /* Create the graph instance */
     Graph.prototype.create_cy_graph = function( loading_div, node_info_container, node_info_box ) {
+        _node_info_container = node_info_container;
+        _node_info_box = node_info_box;
+
         fetch('static/style/graph.json', { mode: 'no-cors' } )
             .then( function( res ) {
                 return res.json()
@@ -131,20 +136,28 @@ var Graph = (function( ) {
                 
                 _cy.ready( function( e ) {
                     loading_div.style.display = 'none';
-                    add_cy_event_handlers( node_info_container, node_info_box );
+                    
+                    _cy.on( 'select', function( event ) {
+                        toggle_selection( event );
+                    });
+            
+                    _cy.on( 'tap', function( event ) {
+                        toggle_selection( event );
+                    });
                 });
             }); 
     };
 
-    function toggle_selection( event, node_info_container, node_info_box ) {
+    /* Toggle selection class and populate node info box */
+    function toggle_selection( event ) {
         _cy.batch( function() {
             _cy.$().removeClass( 'selected' );
         });
 
-        node_info_container.style.display = 'none';
+        _node_info_container.style.display = 'none';
 
         if( event.target && event.target != _cy && event.target.isNode() ){
-            node_info_container.style.display = 'block';
+            _node_info_container.style.display = 'block';
             event.target.addClass( 'selected' );
             
             var id = event.target.id() - 1;
@@ -167,24 +180,13 @@ var Graph = (function( ) {
                     }
                 }
 
-                node_info_box.innerHTML = "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
+                _node_info_box.innerHTML = "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
                     "</span>.\"" + _object_info_nodes[ id ].dataset.objectDescription + "\"" + "<br/>" + "Parent: " + 
                     _object_info_nodes[ id ].dataset.objectParent + "<br/>Child: " + _object_info_nodes[ id ].dataset.objectChild +
                     "<br/><div class='accordion-header'>Properties</div>" + properties;
             }
         }
     }
-
-    /* Add tap handlers for the info box */
-    function add_cy_event_handlers( node_info_container, node_info_box ) {
-        _cy.on( 'select', function( event ) {
-            toggle_selection( event, node_info_container, node_info_box );
-        });
-
-        _cy.on( 'tap', function( event ) {
-            toggle_selection( event, node_info_container, node_info_box );
-        });
-    };
 
     /* Clear set highlighting and restore the opacity of all nodes previously hidden */
     Graph.prototype.clear_highlights = function( zoom_pan ) {
@@ -209,15 +211,19 @@ var Graph = (function( ) {
     /* Hide all nodes not connected to the one selected */
     Graph.prototype.highlight_neighbors = function( query, zoom_pan ) {
         _cy.batch( function( ){
-            var found = _cy.$( query ).closedNeighborhood();
-            _last_search_hidden_members = _cy.elements().not( found );
+            var node = _cy.$( query );
+
+            toggle_selection( { target : node } );
+
+            var neighbors = node.closedNeighborhood();
+            _last_search_hidden_members = _cy.elements().not( neighbors );
 
             _last_search_hidden_members.addClass('hidden-transparent');
         
             if( zoom_pan.checked ) {
                 _cy.animate({
                     fit: {
-                        eles: found,
+                        eles: neighbors,
                         padding: 20
                     }
                 }, {
