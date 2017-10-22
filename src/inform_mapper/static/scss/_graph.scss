@@ -243,8 +243,29 @@ label {
         min-width: 200px;
     }
 
+    .highlight-icon {
+        background: url('../imgs/focus.png') no-repeat 2px;
+    }
+
+    .unhighlight-icon {
+        background: url('../imgs/unfocus.png') no-repeat 2px;
+    }
+
+    .hide-icon {
+        background: url('../imgs/remove.png') no-repeat 2px;
+    }
+
     .highlight-icon, .unhighlight-icon, .hide-icon {
         cursor: pointer;
-        padding: 0 5px;
+        padding: 2px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        box-shadow: 1px 1px 1px 1px;
+        height: 16px;
+        width: 16px;
+
+        &:hover {
+            background-color: $background-contrast;
+        }
     }
 }
