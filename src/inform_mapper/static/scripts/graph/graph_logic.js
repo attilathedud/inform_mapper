@@ -130,7 +130,7 @@ var Graph = (function( ) {
                         idealEdgeLength: 200,
                         edgeElasticity: 4000,
                         nodeRepulsion: 7000,
-                        componentSpacing: 100,
+                        componentSpacing: 200,
                     }
                 });
                 
