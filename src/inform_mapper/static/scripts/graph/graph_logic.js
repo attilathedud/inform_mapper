@@ -136,54 +136,53 @@ var Graph = (function( ) {
             }); 
     };
 
+    function toggle_selection( event, node_info_container, node_info_box ) {
+        _cy.batch( function() {
+            _cy.$().removeClass( 'selected' );
+        });
+
+        node_info_container.style.display = 'none';
+
+        if( event.target && event.target != _cy && event.target.isNode() ){
+            node_info_container.style.display = 'block';
+            event.target.addClass( 'selected' );
+            
+            var id = event.target.id() - 1;
+
+            if( id ) {
+                var properties = '';
+                
+                for( var i = 0; i < _property_number_nodes.length; i++ ) 
+                {
+                    var object_id = _property_number_nodes[ i ].dataset.parentId;
+
+                    if( object_id > id ) {
+                        break;
+                    }
+
+                    if( object_id == id ) {
+                        properties += _property_number_nodes[ i ].innerHTML + 
+                            "<span class='u-pull-right'>" + _property_value_nodes[ i ].innerHTML + 
+                            "</span><br/>";
+                    }
+                }
+
+                node_info_box.innerHTML = "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
+                    "</span>.\"" + _object_info_nodes[ id ].dataset.objectDescription + "\"" + "<br/>" + "Parent: " + 
+                    _object_info_nodes[ id ].dataset.objectParent + "<br/>Child: " + _object_info_nodes[ id ].dataset.objectChild +
+                    "<br/><div class='accordion-header'>Properties</div>" + properties;
+            }
+        }
+    }
+
     /* Add tap handlers for the info box */
     function add_cy_event_handlers( node_info_container, node_info_box ) {
         _cy.on( 'select', function( event ) {
-            if( event.target === _cy ) {
-                _cy.batch( function() {
-                    _cy.$().removeClass( 'selected' );
-                });
-
-                node_info_container.style.display = 'none';
-            }
-            else if( event.target.isNode() ){
-                node_info_container.style.display = 'block';
-                event.target.addClass( 'selected' );
-                
-                var id = event.target.id() - 1;
-
-                if( id ) {
-                    var properties = '';
-                    
-                    for( var i = 0; i < _property_number_nodes.length; i++ ) 
-                    {
-                        var object_id = _property_number_nodes[ i ].dataset.parentId;
-
-                        if( object_id > id ) {
-                            break;
-                        }
-
-                        if( object_id == id ) {
-                            properties += _property_number_nodes[ i ].innerHTML + 
-                                "<span class='u-pull-right'>" + _property_value_nodes[ i ].innerHTML + 
-                                "</span><br/>";
-                        }
-                    }
-
-                    node_info_box.innerHTML = "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
-                        "</span>.\"" + _object_info_nodes[ id ].dataset.objectDescription + "\"" + "<br/>" + "Parent: " + 
-                        _object_info_nodes[ id ].dataset.objectParent + "<br/>Child: " + _object_info_nodes[ id ].dataset.objectChild +
-                        "<br/><div class='accordion-header'>Properties</div>" + properties;
-                }
-            }
+            toggle_selection( event, node_info_container, node_info_box );
         });
 
         _cy.on( 'tap', function( event ) {
-            _cy.batch( function() {
-                _cy.$().removeClass( 'selected' );
-            });
-
-            node_info_container.style.display = 'none';
+            toggle_selection( event, node_info_container, node_info_box );
         });
     };
 
