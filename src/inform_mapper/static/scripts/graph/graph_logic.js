@@ -115,6 +115,9 @@ var Graph = (function( ) {
                         nodes: _object_nodes,
                         edges: _object_edges
                     },
+                    
+                    minZoom: .1,
+                    maxZoom: 2,
 
                     layout: {
                         name: 'cose',
