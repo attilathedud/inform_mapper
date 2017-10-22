@@ -45,6 +45,8 @@
         });
     } 
 
+    accordion_elements[ accordion_elements.length - 1 ].click();
+
     var finder;
     
     function init_search() {
