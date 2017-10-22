@@ -156,6 +156,8 @@
         inform_object_floor.value = "1";
         compass_routing.checked = true;
         zoom_pan.checked = true;
+
+        node_info_container.style.display = 'none';
     });
 
     /* Node info box */
