@@ -146,7 +146,7 @@ var Graph = (function( ) {
 
                 node_info_container.style.display = 'none';
             }
-            else {
+            else if( event.target.isNode() ){
                 node_info_container.style.display = 'block';
                 event.target.addClass( 'selected' );
                 
