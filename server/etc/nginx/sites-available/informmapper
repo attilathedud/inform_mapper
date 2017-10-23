@@ -1,6 +1,6 @@
 server {
-    listen 80;
-    server_name ;
+    listen 0.0.0.0:80;
+    server_name informmapper.xyz;
 
     location / {
         include uwsgi_params;
