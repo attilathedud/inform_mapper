@@ -23,6 +23,9 @@
     var menu_slide_out = document.getElementById('menu');
     var info_box = document.getElementById('info-box');
     var graph_container = document.getElementById('cy');
+
+    var is_node_info_showing = false;
+    var finder;
     
     /* Initialize the graph */
     var graph = new Graph();
@@ -46,8 +49,6 @@
     } 
 
     accordion_elements[ accordion_elements.length - 1 ].click();
-
-    var finder;
     
     function init_search() {
         if( finder ) {
@@ -173,7 +174,7 @@
     hide_icon.addEventListener( 'click', function( e ) {
         graph.hide_objects('node[id ="' + (document.getElementById('node-selected').innerHTML ) + '"]' );
 
-        document.getElementById('node-info-container').style.display = 'none';
+        node_info_container.style.display = 'none';
     });
 
     /* Menu button */
@@ -182,9 +183,19 @@
         graph_container.classList.toggle( "slide-out" );
 
         if( menu_slide_out.innerHTML.trim()[0] == "M" ) {
+            if( node_info_container.style.display != 'none' ) {
+                is_node_info_showing = true;
+                node_info_container.style.display = 'none';
+            }
+
             menu_slide_out.innerHTML = "G<br>R<br>A<br>P<br>H";
         }
         else {
+            if( is_node_info_showing ) {
+                is_node_info_showing = false;
+                node_info_container.style.display = 'block';
+            }
+
             menu_slide_out.innerHTML = "M<br>E<br>N<br>U";
         }
     });
