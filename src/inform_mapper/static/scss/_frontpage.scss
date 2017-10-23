@@ -89,7 +89,9 @@
 }
 
 #display-window {
-    max-height: 50vh;
+    @media (min-width: 750px) {
+        max-height: 50vh;
+    }
     overflow: scroll;
 }
 
@@ -104,7 +106,7 @@
 }
 
 .navigation {
-    @media (min-width: 400px) {
+    @media (min-width: 750px) {
         float: right;
     }
     list-style: none;

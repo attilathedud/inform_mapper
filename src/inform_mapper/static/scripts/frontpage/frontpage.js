@@ -26,6 +26,7 @@
 
 	document.addEventListener( 'click', function( e ) {
 		command_pallet.focus();
+		location.hash = "command"
 	})
 
 	/* Wire up the display window */
