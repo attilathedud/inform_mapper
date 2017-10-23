@@ -1,4 +1,5 @@
 ./tools/fix_imports.sh
+./tools/fix_cache.sh
 
 rm -rf /var/www/informmapper/static
 rm -rf /var/www/informmapper/templates
