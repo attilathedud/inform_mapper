@@ -1,3 +1,7 @@
+#!/bin/bash
+# A helper script that takes the contents of the dist folder, applies some fixes to them for prod
+# and then moves them to the website's directory.
+
 ./tools/fix_imports.sh
 ./tools/fix_cache.sh
 
