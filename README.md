@@ -1,5 +1,5 @@
 ## Inform Mapper
-Inform Mapper is an interactive graph web application for Inform adventure games. You can see it in action [here.](http://informmapper.xyz)
+Inform Mapper is an interactive web graphing application for Inform adventure games. You can see it in action [here.](http://informmapper.xyz)
 
 ![Site screenshot](/promos/promo.png?raw=true "Graph screen")
 
