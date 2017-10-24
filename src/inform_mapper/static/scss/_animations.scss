@@ -1,10 +1,16 @@
+/*
+    All the animation related css. Includes the loading spinner icon and the slide-in/out effects.
+*/
+
+@import 'consts';
+
 /* Loading spinner div */
 #loading {
     @media (max-width: 400px) {
         left: 22%;
     }
 
-    @media (max-width: 750px) {
+    @media (max-width: $tablet-size) {
         left: 35%;
     }
 

@@ -1,4 +1,7 @@
+/* All the styles for the frontpage of the site */
+
 @import 'colors';
+@import 'consts';
 
 /* Custom input file */
 .input-file {
@@ -10,7 +13,7 @@
     z-index: -1;
 
     &+ label {
-        @media (max-width: 750px) {
+        @media (max-width: $tablet-size) {
             width: 100%;
         }
 
@@ -50,12 +53,12 @@
 }
 
 .submit-file-button {
-    @media (min-width: 750px) {
+    @media (min-width: $tablet-size) {
         position: absolute;
         left: 0;
     }
 
-    @media (max-width: 750px) {
+    @media (max-width: $tablet-size) {
         width: 89%;
     }
 
@@ -89,7 +92,7 @@
 }
 
 #display-window {
-    @media (min-width: 750px) {
+    @media (min-width: $tablet-size) {
         max-height: 50vh;
     }
     overflow: scroll;
@@ -106,7 +109,7 @@
 }
 
 .navigation {
-    @media (min-width: 750px) {
+    @media (min-width: $tablet-size) {
         float: right;
     }
     list-style: none;

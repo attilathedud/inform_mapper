@@ -1,13 +1,14 @@
+/* All the styles for the graph section of the site */
+
 @import 'colors';
 @import 'animations';
-
-$info-box-width: 25%;
+@import 'consts';
 
 /* Main page elements */
 #info-box {
-    @media (max-width: 750px) {
+    @media (max-width: $tablet-size) {
         width: 100%;
-        left: -750px;
+        left: -$tablet-size;
     }
 
     height: 90%;
@@ -22,7 +23,7 @@ $info-box-width: 25%;
 
 /* Graph container */
 #cy {
-    @media (max-width: 750px) {
+    @media (max-width: $tablet-size) {
         width: 100%;
         left: 0;
     }
@@ -35,7 +36,7 @@ $info-box-width: 25%;
 }
 
 #menu {
-    @media (min-width: 750px) {
+    @media (min-width: $tablet-size) {
         display: none;
     }
 
@@ -47,7 +48,7 @@ $info-box-width: 25%;
 
 /* Help text */
 .help-text {
-    @media (max-width: 750px) {
+    @media (max-width: $tablet-size) {
         display: none;
     }
     color: $background-contrast;
@@ -59,7 +60,7 @@ $info-box-width: 25%;
 
 /* Search box */
 .search-box-container {
-    @media (max-width: 750px) {
+    @media (max-width: $tablet-size) {
         width: 100%;
     }
 
@@ -76,7 +77,7 @@ $info-box-width: 25%;
     }
 
     & .search-icon {
-        @media (max-width: 750px) {
+        @media (max-width: $tablet-size) {
             left: 10%;
         }
 
@@ -89,7 +90,7 @@ $info-box-width: 25%;
     }
 
     & .clear-icon {
-        @media (max-width: 750px) {
+        @media (max-width: $tablet-size) {
             right: 10%;
         }
 
