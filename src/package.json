@@ -1,7 +1,7 @@
 {
   "name": "inform_mapper",
   "version": "1.0.0",
-  "description": "Interactive mapper for inform games",
+  "description": "An interactive graph web application for Inform adventure games.",
   "main": "gulpfile.js",
   "dependencies": {
     "gulp": "^3.9.1"
@@ -24,7 +24,7 @@
     "url": "git+https://github.com/attilathedud/inform_mapper.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache 2",
   "bugs": {
     "url": "https://github.com/attilathedud/inform_mapper/issues"
   },
