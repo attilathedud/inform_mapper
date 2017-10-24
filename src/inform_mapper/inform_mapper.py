@@ -56,6 +56,12 @@ def main_page():
     return render_template('frontpage.html')
 
 
+@app.errorhandler(404)
+def not_found_error(error):
+    """On 404, just redirect to the front page"""
+    return render_template('frontpage.html', errorcode="That page doesn't exist.")
+
+
 @app.route('/adventureland')
 def example():
     """For our example, automatically send Adventureland to be parsed and displayed."""
