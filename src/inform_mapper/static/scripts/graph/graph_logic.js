@@ -70,6 +70,7 @@ var Graph = (function( ) {
                 add_edge( _object_info_nodes[ i ].dataset.objectChild, _object_info_nodes[ i ].dataset.objectId );
             }
 
+            // If we find the compass object, set it as a parent so we can start adding edge directions
             if( _object_info_nodes[ i ].dataset.objectDescription == "compass" ) {
                 compass_node = _object_info_nodes[ i ].dataset.objectId;
             }
@@ -80,6 +81,8 @@ var Graph = (function( ) {
             }
         }
     
+        // If a property is a compass direction, then its value points to the node that would
+        // be traveled to.
         for( var i = 0; i < _property_number_nodes.length; i++ ) 
         {
             for( var direction_id in compass_directions ) {

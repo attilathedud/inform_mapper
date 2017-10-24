@@ -24,7 +24,10 @@
     var info_box = document.getElementById('info-box');
     var graph_container = document.getElementById('cy');
 
+    /* Store the state of the node info box for mobile displays */
     var is_node_info_showing = false;
+
+    /* Used to revert changes to the findAndReplaceDOMText operations*/
     var finder;
     
     /* Initialize the graph */
@@ -48,6 +51,7 @@
         });
     } 
 
+    // Open up settings when loading
     accordion_elements[ accordion_elements.length - 1 ].click();
     
     function init_search() {
@@ -57,6 +61,7 @@
 
         graph.clear_highlights( zoom_pan );
 
+        // Strip out spaces as to not lag the page down searching for every space
         var search_term = search_box.value.replace(new RegExp(' ', 'g'), '');
         if( search_term.length > 0 ) {
             graph.highlight_neighbors( 'node[name @*="' + search_box.value + '"]', zoom_pan );
@@ -78,6 +83,9 @@
                 var object_panel_set = false;
                 var selections = document.getElementsByClassName( 'highlight' );
     
+                // For each selection, loop up until we find the associated accordion section and expand it.
+                // If selection is inside a scrollable div, set the scrollHeight to that element and then
+                // disable the logic so we stop on the first element found in that section.
                 for( var i = 0; i < selections.length; i++ ) {
                     var cur_selection_parent = selections[ i ];
     

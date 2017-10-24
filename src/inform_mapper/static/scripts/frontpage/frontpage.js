@@ -11,6 +11,7 @@
 	var input = document.getElementsByClassName( 'input-file' )[ 0 ];
 	var upload = document.getElementsByClassName( 'submit-file-button')[ 0 ];
 
+	/* Helper function to add text to the display and automatically scroll to the bottom */
 	function append_text_to_display_window( text ) {
 		display_window.innerHTML += text;
 		display_window.scrollTop = display_window.scrollHeight;
@@ -26,10 +27,12 @@
 
 	document.addEventListener( 'click', function( e ) {
 		command_pallet.focus();
+		// To fix a bug where a mobile keyboard would cut off the bottom of the display window text,
+		// we disable scrolling on mobile and set the hash to the command element so it is scrolled to.
 		location.hash = "command"
 	})
 
-	/* Wire up the display window */
+	/* On the about and contact click events, populate the display window with associated text. */
 	about_link.addEventListener( 'click', function( e ) {
 		append_text_to_display_window( about_text.innerHTML );
 	});
@@ -41,16 +44,18 @@
 	/* Logic for command pallet */
 	command_pallet.addEventListener( 'keypress', function( e ) {
 		if( e.which == 13 ) {
-			if( command_pallet.value.split(' ')[ 0 ].toLowerCase().indexOf('about') != -1 ) {
+			var command = command_pallet.value.split(' ')[ 0 ].toLowerCase();
+
+			if( command.indexOf('about') != -1 ) {
 				about_link.click();
 			}
-			else if( command_pallet.value.split(' ')[ 0 ].toLowerCase().indexOf('contact') != -1 ) {
+			else if( command.indexOf('contact') != -1 ) {
 				contact_link.click();
 			}
-			else if( command_pallet.value.split(' ')[ 0 ].toLowerCase().indexOf('choose') != -1 ) {
+			else if( command.indexOf('choose') != -1 ) {
 				input.click();
 			}
-			else if( command_pallet.value.split(' ')[ 0 ].toLowerCase().indexOf('upload') != -1 ) {
+			else if( command.indexOf('upload') != -1 ) {
 				if( upload.style.display == 'inline-block') {
 					upload.click();
 				}
@@ -58,7 +63,7 @@
 					append_text_to_display_window('<h5>Error</h5><p>Please choose a file first.</p>'); 
 				}
 			}
-			else if( command_pallet.value.split(' ')[ 0 ].toLowerCase().indexOf('clear') != -1 ) {
+			else if( command.indexOf('clear') != -1 ) {
 				display_window.innerHTML = '<p>You\'re confused. Choose an inform file below or type `choose` and hit enter.</p>';
 			}
 			else {
