@@ -1,21 +1,41 @@
-from .inform_text import decode_z_word, decode_ascii_bytes
+"""
+All the code responsible for getting the sections of the z game.
+"""
 import os
+
+from .inform_text import decode_ascii_bytes, decode_z_word
 
 HEADER_SIZE = 64
 
+
 class Inform_Header:
+    """Container class for header information"""
     pass
+
 
 class Inform_Abbrevations:
+    """Container class for abbrevation information"""
     pass
+
 
 class Inform_Dictionary:
+    """Container class for dictionary information"""
     pass
+
 
 class Inform_Object:
+    """Container class for object information"""
     pass
 
+
 def get_header_info(uploaded_file):
+    """
+    Scan the header of the game and verify some data to make sure this is an
+    actual z-game.
+
+    Header structure can be found here:
+    http://inform-fiction.org/zmachine/standards/z1point0/sect11.html
+    """
     header = Inform_Header()
 
     uploaded_file.seek(0, os.SEEK_END)
@@ -64,7 +84,14 @@ def get_header_info(uploaded_file):
 
     return header
 
-def get_abbrevation_info(uploaded_file, version, abbrevations_table_address ):
+
+def get_abbrevation_info(uploaded_file, version, abbrevations_table_address):
+    """
+    Using the abbrevation table given in the header, decode our abbrevations.
+
+    I have not been able to find a game that uses these, but this code should work.
+    Should.
+    """
     abbrevations = Inform_Abbrevations()
 
     if version == 1:
@@ -76,11 +103,19 @@ def get_abbrevation_info(uploaded_file, version, abbrevations_table_address ):
     uploaded_file.seek(int(abbrevations_table_address, 16))
 
     for i in range(0, abbrevations.count):
-        abbrevations.items.append((i+1, decode_z_word(uploaded_file.read(2).hex())))
+        abbrevations.items.append(
+            (i + 1, decode_z_word(uploaded_file.read(2).hex())))
 
     return abbrevations
 
+
 def get_dictionary_info(uploaded_file, dictionary_address):
+    """
+    Using the dictionary given in the header, parse the dictionary data.
+
+    Dictionary structure is described here:
+    http://inform-fiction.org/zmachine/standards/z1point0/sect13.html
+    """
     dictionary = Inform_Dictionary()
 
     uploaded_file.seek(int(dictionary_address, 16))
@@ -95,11 +130,21 @@ def get_dictionary_info(uploaded_file, dictionary_address):
     for i in range(0, dictionary.entries):
         uploaded_file.seek(int(dictionary_address, 16) + dictionary.separator_length + 1
                            + 1 + 2 + (i * dictionary.entry_length))
-        dictionary.words.append((i+1, decode_z_word(uploaded_file.read(6).hex())))
+        dictionary.words.append(
+            (i + 1, decode_z_word(uploaded_file.read(6).hex())))
 
     return dictionary
 
+
 def get_object_info(uploaded_file, object_table_address):
+    """
+    Using the object table given in the header, loop through and parse all the objects.
+
+    Properties are stored in their own location after the object table.
+
+    Object table described here:
+    http://inform-fiction.org/zmachine/standards/z1point0/sect12.html
+    """
     objects = []
 
     beginning_of_properties_section = 0
@@ -114,7 +159,8 @@ def get_object_info(uploaded_file, object_table_address):
         cur_object_id += 1
 
         # Attributes at the front of the object
-        temp_attributes = bin(int(uploaded_file.read(6).hex(), 16))[2:].zfill(48)
+        temp_attributes = bin(int(uploaded_file.read(6).hex(), 16))[
+            2:].zfill(48)
         temp_attribute_list = []
         for i in range(0, len(temp_attributes)):
             if temp_attributes[i] is not '0':
@@ -137,12 +183,14 @@ def get_object_info(uploaded_file, object_table_address):
         # Get our properties
         uploaded_file.seek(int(cur_object.properties, 16))
         cur_object.description_length = int(uploaded_file.read(1).hex(), 16)
-        cur_object.description_bytes = uploaded_file.read(cur_object.description_length * 2).hex()
+        cur_object.description_bytes = uploaded_file.read(
+            cur_object.description_length * 2).hex()
         cur_object.description = decode_z_word(cur_object.description_bytes)
 
         cur_object.property_list = []
 
-        property_size_and_number = bin(int(uploaded_file.read(1).hex(), 16))[2:].zfill(8)
+        property_size_and_number = bin(
+            int(uploaded_file.read(1).hex(), 16))[2:].zfill(8)
         property_data = ''
         while property_size_and_number != '00000000':
             if property_size_and_number[0] is '0':
@@ -151,12 +199,16 @@ def get_object_info(uploaded_file, object_table_address):
                 else:
                     property_data = uploaded_file.read(2).hex()
             else:
-                property_data_size_and_number = bin(int(uploaded_file.read(1).hex(), 16))[2:].zfill(8)
-                property_data = uploaded_file.read(int(property_data_size_and_number[2:8],2)).hex()
+                property_data_size_and_number = bin(
+                    int(uploaded_file.read(1).hex(), 16))[2:].zfill(8)
+                property_data = uploaded_file.read(
+                    int(property_data_size_and_number[2:8], 2)).hex()
 
-            cur_object.property_list.append((int(property_size_and_number[2:8], 2), property_data))
+            cur_object.property_list.append(
+                (int(property_size_and_number[2:8], 2), property_data))
 
-            property_size_and_number = bin(int(uploaded_file.read(1).hex(), 16))[2:].zfill(8)
+            property_size_and_number = bin(
+                int(uploaded_file.read(1).hex(), 16))[2:].zfill(8)
             property_data = ''
 
         uploaded_file.seek(cur_pos_in_obj_list)
