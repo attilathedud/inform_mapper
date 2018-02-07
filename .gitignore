@@ -11,9 +11,3 @@ node_modules/
 
 # Release folder
 dist/
-
-# Debug games
-inform_test_games/
-
-# Original ZTools dist
-ztools/
