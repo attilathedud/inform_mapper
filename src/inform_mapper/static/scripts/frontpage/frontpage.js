@@ -8,6 +8,7 @@
 	var about_text = document.getElementById('about-text');
 	var contact_link = document.getElementById('contact-link');
 	var contact_text = document.getElementById('contact-text');
+	var help_text = document.getElementById('help-text');
 	var input = document.getElementsByClassName( 'input-file' )[ 0 ];
 	var upload = document.getElementsByClassName( 'submit-file-button')[ 0 ];
 
@@ -45,6 +46,9 @@
 			else if( command.indexOf('contact') != -1 ) {
 				contact_link.click();
 			}
+			else if( command.indexOf('help') != -1 ) {
+				append_text_to_display_window( help_text.innerHTML );
+			}
 			else if( command.indexOf('choose') != -1 ) {
 				input.click();
 			}
@@ -57,10 +61,10 @@
 				}
 			}
 			else if( command.indexOf('clear') != -1 ) {
-				display_window.innerHTML = '<p>You\'re confused. Choose an inform file below or type `choose` and hit enter.</p>';
+				display_window.innerHTML = "<p>You're confused. Choose an inform file below or type `choose` and hit enter.<br><br>Actually confused? Type `help` for details.</p>";
 			}
 			else {
-				append_text_to_display_window('<h5>Error</h5><p>I don\'t understand. Try `about`, `contact`, `clear`, `choose`, or `upload`.</p>'); 
+				append_text_to_display_window('<h5>Error</h5><p>I don\'t understand. Try `about`, `contact`, `help`, `clear`, `choose`, or `upload`.</p>'); 
 			}
 
 			command_pallet.value = '';

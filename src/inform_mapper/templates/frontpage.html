@@ -33,6 +33,8 @@
         <br/>
         <br/>
         You're confused. Choose an inform file below or type `choose` and hit enter.
+        <br><br>
+        Actually confused? Type `help` for details.
     </p>
 </div>
 
@@ -46,6 +48,22 @@
         <br/>
         <br/>
         You're confused. Choose an inform file below or type `choose` and hit enter.
+        <br><br>
+        Actually confused? Type `help` for details.
+    </p>
+</div>
+
+<div id="help-text">
+    <h5>Help</h5>
+
+    <p>
+        Inform Mapper is a tool that maps out connections between nodes in Inform adventure games (z1-z8). You can
+        download these games from <a href="http://ifdb.tads.org/">ifdb</a> and 
+        <a href="http://ifarchive.org/if-archive/games/zcode/">ifarchive</a> for free and play them in a 
+        variety of free emulators.
+        <br/>
+        <br/>
+        Valid commands are `about`, `contact`, `help`, `clear`, `choose`, or `upload`.
     </p>
 </div>
 
@@ -54,7 +72,11 @@
         <h2>Inform Mapper</h2>
     </div>
     <div id="display-window" class="row">
-        <p>You're confused. Choose an inform file below or type `choose` and hit enter.</p>
+        <p>
+            You're confused. Choose an inform file below or type `choose` and hit enter.
+            <br><br>
+            Actually confused? Type `help` for details.
+        </p>
 
         {% if errorcode %}
             <h5>Error</h5>
