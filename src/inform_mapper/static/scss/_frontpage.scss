@@ -89,6 +89,11 @@
 .command-pallet {
     background: transparent !important;
     border: 0 !important;
+    width: 95%;
+}
+
+.command-row {
+    border-top: 1px solid $background-text-color;
 }
 
 #display-window {

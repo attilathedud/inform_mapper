@@ -25,13 +25,6 @@
 	/* Wire up the command pallet */
 	command_pallet.focus();
 
-	document.addEventListener( 'click', function( e ) {
-		command_pallet.focus();
-		// To fix a bug where a mobile keyboard would cut off the bottom of the display window text,
-		// we disable scrolling on mobile and set the hash to the command element so it is scrolled to.
-		location.hash = "command"
-	})
-
 	/* On the about and contact click events, populate the display window with associated text. */
 	about_link.addEventListener( 'click', function( e ) {
 		append_text_to_display_window( about_text.innerHTML );
