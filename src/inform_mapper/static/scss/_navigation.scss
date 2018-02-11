@@ -1,0 +1,40 @@
+@import 'colors';
+@import 'consts';
+
+/* Navigation stuff */
+.navbar {
+    background-color: $primary-color;
+    margin-bottom: 5%;
+}
+
+/* Icon on navbar */
+.navbar-icon {
+    margin-top: .25rem;
+    height: 64px;
+    width: 64px;
+    margin-left: 1rem;
+}
+
+.navigation {
+    @media (min-width: $tablet-size) {
+        float: right;
+    }
+    list-style: none;
+    padding-top: 2rem;
+
+    > li {
+        display: inline;
+        text-decoration: none;
+        font-size: larger;
+
+        > a {
+            text-decoration: none;
+            padding: 20px;
+            color: $text-color;
+            
+            &:hover {
+                color: $background-contrast;
+            }
+        }
+    }
+}
