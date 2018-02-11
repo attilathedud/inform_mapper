@@ -113,6 +113,14 @@
     margin-bottom: 5%;
 }
 
+/* Icon on navbar */
+.navbar-icon {
+    margin-top: .25rem;
+    height: 64px;
+    width: 64px;
+    margin-left: 1rem;
+}
+
 .navigation {
     @media (min-width: $tablet-size) {
         float: right;
