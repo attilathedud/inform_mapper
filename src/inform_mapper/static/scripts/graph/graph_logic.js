@@ -139,29 +139,33 @@ var Graph = (function( ) {
                 
                 _cy.ready( function( e ) {
                     loading_div.style.display = 'none';
-                    
-                    _cy.on( 'select', function( event ) {
+
+                    _cy.on( 'select boxselect', 'node', function( event ) {
                         toggle_selection( event );
                     });
-            
-                    _cy.on( 'tap', function( event ) {
-                        toggle_selection( event );
+
+                    _cy.on( 'tap boxstart', function( event ) {
+                        disable_selection();
                     });
                 });
             }); 
     };
 
-    /* Toggle selection class and populate node info box */
-    function toggle_selection( event ) {
+    /* Disable the current selection */
+    function disable_selection() {
         _cy.batch( function() {
             _cy.$().removeClass( 'selected' );
         });
 
         _node_info_container.style.display = 'none';
+        _node_info_box.innerHTML = '';
+    }
 
-        if( event.target && event.target != _cy && event.target.isNode() ){
-            _node_info_container.style.display = 'block';
+    /* Toggle selection class and populate node info box */
+    function toggle_selection( event ) {
+        if( event.target ){
             event.target.addClass( 'selected' );
+            _node_info_container.style.display = 'block';
             
             var id = event.target.id() - 1;
 
@@ -183,10 +187,10 @@ var Graph = (function( ) {
                     }
                 }
 
-                _node_info_box.innerHTML = "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
+                _node_info_box.innerHTML += "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
                     "</span>.\"" + _object_info_nodes[ id ].dataset.objectDescription + "\"" + "<br/>" + "Parent: " + 
                     _object_info_nodes[ id ].dataset.objectParent + "<br/>Child: " + _object_info_nodes[ id ].dataset.objectChild +
-                    "<br/><div class='accordion-header'>Properties</div>" + properties;
+                    "<br/><div class='accordion-header'>Properties</div>" + properties + "<br/>";
             }
         }
     }
@@ -216,6 +220,7 @@ var Graph = (function( ) {
         _cy.batch( function( ){
             var node = _cy.$( query );
 
+            disable_selection();
             toggle_selection( { target : node } );
 
             var neighbors = node.closedNeighborhood();
