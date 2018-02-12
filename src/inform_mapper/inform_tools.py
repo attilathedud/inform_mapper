@@ -62,6 +62,8 @@ def get_header_info(uploaded_file):
 
     header.global_variables_table = uploaded_file.read(2).hex()
     header.base_of_static_memory = uploaded_file.read(2).hex()
+    uploaded_file.seek(18)
+    header.serial = decode_ascii_bytes(uploaded_file.read(6).hex(), 6)
     uploaded_file.seek(24)
     header.abbrevations_table = uploaded_file.read(2).hex()
     if int(header.abbrevations_table, 16) > actual_file_size:
