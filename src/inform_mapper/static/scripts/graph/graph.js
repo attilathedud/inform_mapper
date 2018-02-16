@@ -169,10 +169,23 @@
         node_info_container.style.display = 'none';
     });
 
+    function generate_nodes_selected_query_string() {
+        var nodes_selected = document.getElementsByClassName('node-selected');
+        var query_string = '';
+
+        for( var i = 0; i < nodes_selected.length; i++ ) {
+            query_string += 'node[id="' + nodes_selected[i].innerHTML + '"],';
+        }
+
+        query_string = query_string.substring(0, query_string.length - 1);
+
+        return query_string;
+    }
+
     /* Node info box */
     highlight_icon.addEventListener( 'click', function( e ) {
         graph.clear_highlights( zoom_pan );
-        graph.highlight_neighbors( 'node[id ="' + (document.getElementById('node-selected').innerHTML ) + '"]', zoom_pan );
+        graph.highlight_neighbors( generate_nodes_selected_query_string(), zoom_pan );
     });
 
     unhighlight_icon.addEventListener( 'click', function( e ) {
@@ -180,7 +193,7 @@
     });
 
     hide_icon.addEventListener( 'click', function( e ) {
-        graph.hide_objects('node[id ="' + (document.getElementById('node-selected').innerHTML ) + '"]' );
+        graph.hide_objects( generate_nodes_selected_query_string() );
 
         node_info_container.style.display = 'none';
     });

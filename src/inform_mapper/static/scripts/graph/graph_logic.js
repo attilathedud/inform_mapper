@@ -140,11 +140,11 @@ var Graph = (function( ) {
                 _cy.ready( function( e ) {
                     loading_div.style.display = 'none';
 
-                    _cy.on( 'select boxselect', 'node', function( event ) {
+                    _cy.on( 'select', 'node', function( event ) {
                         toggle_selection( event );
                     });
 
-                    _cy.on( 'tap boxstart', function( event ) {
+                    _cy.on( 'tap', function( event ) {
                         disable_selection();
                     });
                 });
@@ -187,7 +187,7 @@ var Graph = (function( ) {
                     }
                 }
 
-                _node_info_box.innerHTML += "<span id='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
+                _node_info_box.innerHTML += "<span class='node-selected'>" + _object_info_nodes[ id ].dataset.objectId + 
                     "</span>.\"" + _object_info_nodes[ id ].dataset.objectDescription + "\"" + "<br/>" + "Parent: " + 
                     _object_info_nodes[ id ].dataset.objectParent + "<br/>Child: " + _object_info_nodes[ id ].dataset.objectChild +
                     "<br/><div class='accordion-header'>Properties</div>" + properties + "<br/>";
