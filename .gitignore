@@ -1,5 +1,8 @@
 # Python stuff
 venv/
+.eggs/
+.pytest_cache/
+__pycache__
 *.egg-info
 *.pyc
 
