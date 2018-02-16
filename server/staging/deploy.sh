@@ -14,3 +14,5 @@ rm -rf dist/
 
 sudo systemctl restart informmapper
 sudo systemctl restart nginx
+
+echo 'Deploy successful'
