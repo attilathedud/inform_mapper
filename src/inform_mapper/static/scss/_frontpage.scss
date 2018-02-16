@@ -90,11 +90,9 @@
 .command-pallet {
     background: transparent !important;
     border: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid $background-text-color !important;
     width: 95%;
-}
-
-.command-row {
-    border-top: 1px solid $background-text-color;
 }
 
 #display-window {
