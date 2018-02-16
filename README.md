@@ -23,3 +23,5 @@ The build process makes use of gulp and sass. Run `gulp watch` while developing 
 The backend uses Flask and Python 3.
 
 The server related code is explained in the server/README.md file.
+
+Tests are written using pytest. Run `pytest` in the `tests/` directory to run them.
