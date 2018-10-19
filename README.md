@@ -25,3 +25,25 @@ The backend uses Flask and Python 3.
 The server related code is explained in the server/README.md file.
 
 Tests are written using pytest. Run `pytest` in the `tests/` directory to run them.
+
+### Future Work
+Due to a lack of time, resources, and interest, I have shut down informmapper.xyz and will be taking a hiatus from this project. Below is a list of bugs and planned features I had originally planned to work on.
+
+#### Bugs
+- Add href tags to the About and Contact links.
+- Node info box will not scroll to top if you select a long node then a short one.
+- Make a 16x16 icon for mobile.
+- Fix v8 compatibility. Some work, but titles like moon.v8 do not.
+- Test on v1 compatibility. I have never found a v1 game.
+- Properly import flask into tests to build them out.
+
+#### Features
+- Get the hard-coded text strings at the end of the file.
+- Log page views using a sqlite backend.
+- Add parchment interpreter so users can play and disassemble at the same time.
+- Detect the release library in the header.
+- Decode verbs.
+- Decode property defaults.
+- Disassembler of the game code.
+- Add abbrevation and custom dictionary support in text decoding.
+ 
